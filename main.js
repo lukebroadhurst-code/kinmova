@@ -51,22 +51,41 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   const clause = document.querySelector('.how-clause');
   const note = document.querySelector('.how-note');
   const frags = document.querySelectorAll('.how-frag');
-  const names = document.querySelectorAll('.how-names li');
+  const steps = document.querySelectorAll('.how-names button');
+  const stops = document.querySelectorAll('.range-stops i');
   const fill = document.querySelector('.range-fill');
-  let current = 0;
+  const last = stages.length - 1;
+  let current = -1;
   const show = (i) => {
-    fill.style.width = `${(i / (stages.length - 1)) * 100}%`;
+    fill.style.width = `calc(var(--thumb) / 2 + (100% - var(--thumb)) * ${i / last})`;
+    stops.forEach((s, k) => s.classList.toggle('on', k <= i));
+    steps.forEach((b, k) => { b.classList.toggle('is-current', k === i); b.setAttribute('aria-pressed', String(k === i)); });
     if (i === current) return;
+    const first = current === -1;
     current = i;
+    input.value = String(i);
     input.setAttribute('aria-valuetext', stages[i].name);
     frags.forEach((f) => f.classList.toggle('is-current', Number(f.dataset.stage) === i));
-    names.forEach((n, k) => n.classList.toggle('is-current', k === i));
     const swap = () => { clause.textContent = stages[i].clause; note.textContent = stages[i].note; clause.style.opacity = 1; note.style.opacity = 1; };
-    if (reduceMotion) { swap(); return; }
+    if (reduceMotion || first) { swap(); return; }
     clause.style.opacity = 0; note.style.opacity = 0;
     setTimeout(swap, 180);
   };
-  input.addEventListener('input', () => show(Number(input.value)));
+
+  // Steps through on its own while the section is on screen, until someone touches it.
+  let touched = false;
+  let timer = null;
+  const stop = () => { clearInterval(timer); timer = null; };
+  const start = () => { if (!touched && !timer && !reduceMotion) timer = setInterval(() => show((current + 1) % stages.length), 3500); };
+  const takeOver = () => { touched = true; stop(); };
+  input.addEventListener('input', () => { takeOver(); show(Number(input.value)); });
+  input.addEventListener('pointerdown', takeOver);
+  input.addEventListener('keydown', takeOver);
+  steps.forEach((b) => b.addEventListener('click', () => { takeOver(); show(Number(b.dataset.step)); }));
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => (entry.isIntersecting ? start() : stop()), { threshold: 0.5 }).observe(document.getElementById('how'));
+  }
+  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : null));
   show(0);
 })();
 
@@ -89,10 +108,8 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   start();
 })();
 
-// Sign-up form. Set data-endpoint on the form (for example a Formspree or Tally URL) before launch.
-(() => {
-  const form = document.querySelector('.coupon-form');
-  if (!form) return;
+// Sign-up forms (top and bottom of the page). Each posts to the Formspree endpoint in its data-endpoint.
+document.querySelectorAll('.signup-form').forEach((form) => {
   const status = form.querySelector('.form-status');
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -118,4 +135,4 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
       status.textContent = 'That didn’t send. Please try again in a minute.';
     }
   });
-})();
+});

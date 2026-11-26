@@ -44,8 +44,28 @@
     <p class="wordmark" data-rise style="--i:0"><img src="brand/kinmova-wordmark.svg" alt="Kinmova" width="361" height="73"></p>
     <h1 id="hero-title" class="hero-title" data-rise style="--i:1">See who’s slipping <br>before they quit</h1>
     <p class="hero-line" data-rise style="--i:2">Kinmova is class booking plus training for the days in between, so you can see who’s keeping it up and nudge the rest.</p>
-    <a class="btn" href="#claim" data-rise style="--i:3">Claim 3 months free</a>
-    <p class="hero-note" data-rise style="--i:4">We’re opening to a small group of studios first. Your three free months start the day you go live, and you’ll know the price before they end.</p>
+    <form class="signup-form hero-form" method="post" action="https://formspree.io/f/mljbvwkw" data-endpoint="https://formspree.io/f/mljbvwkw" novalidate data-rise style="--i:3">
+      <input type="hidden" name="_subject" value="New founding studio sign-up">
+      <input type="hidden" name="form" value="Top of page">
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
+      <label class="vh" for="h-name">Your name</label>
+      <input id="h-name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
+      <label class="vh" for="h-studio">Studio or club name</label>
+      <input id="h-studio" name="studio" type="text" autocomplete="organization" placeholder="Studio or club name" required>
+      <label class="vh" for="h-email">Email</label>
+      <input id="h-email" name="email" type="email" autocomplete="email" placeholder="Email" required>
+      <label class="vh" for="h-size">Roughly how many members</label>
+      <select id="h-size" name="members" required>
+        <option value="" selected disabled>Number of members</option>
+        <option>Fewer than 30</option>
+        <option>30 to 80</option>
+        <option>80 to 150</option>
+        <option>More than 150</option>
+      </select>
+      <button class="btn hero-submit" type="submit">Claim 3 months free</button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+    <p class="hero-note" data-rise style="--i:4">We’re opening to a small group of studios first. Your three free months start the day you go live, and after that it’s £15 a month plus 2% + 20p on each card payment.</p>
     <nav class="hero-links" aria-label="On this page" data-rise style="--i:5">
       <a href="#how">How it works</a>
       <a href="#included">What’s included</a>
@@ -182,14 +202,15 @@
     <label class="vh" for="stage">Show a stage of the week</label>
     <div class="range-wrap">
       <span class="range-track" aria-hidden="true"><span class="range-fill"></span></span>
+      <span class="range-stops" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>
       <input id="stage" type="range" min="0" max="3" step="1" value="0" aria-valuetext="Timetable">
     </div>
-    <ol class="how-names" aria-hidden="true">
-      <li class="is-current">Timetable</li>
-      <li>Joining</li>
-      <li>Training</li>
-      <li>Progress</li>
-    </ol>
+    <div class="how-names" role="group" aria-label="Stages of the week">
+      <button type="button" class="is-current" aria-pressed="true" data-step="0">Timetable</button>
+      <button type="button" aria-pressed="false" data-step="1">Joining</button>
+      <button type="button" aria-pressed="false" data-step="2">Training</button>
+      <button type="button" aria-pressed="false" data-step="3">Progress</button>
+    </div>
   </div>
 </section>
 
@@ -252,6 +273,7 @@
   </div>
   <div class="offer-figure">
     <p class="figure" data-reveal><span class="cur">£</span>0<span class="per">for 3 months</span></p>
+    <p class="offer-then" data-reveal>Then £15 a month, plus 2% + 20p on each card payment</p>
     <span class="offer-dot" aria-hidden="true"></span>
     <ul class="offer-lines" data-reveal style="--i:1">
       <li>Everything in the app for three months</li>
@@ -272,7 +294,7 @@
     </details>
     <details name="faq">
       <summary>What happens after the three months?</summary>
-      <p>You decide whether to stay. We’ll tell you the monthly price well before your free months end, and if you don’t want to carry on there’s nothing to cancel.</p>
+      <p>It’s £15 a month, plus 2% + 20p on each card payment your members make through Kinmova. You decide whether to stay, and if you don’t want to carry on there’s nothing to cancel.</p>
     </details>
     <details name="faq">
       <summary>Do my members pay anything?</summary>
@@ -301,11 +323,12 @@
   <div class="coupon">
     <div class="coupon-words">
       <h2 id="claim-title">Claim your 3 months free</h2>
-      <p>Tell us a little about your studio and we’ll be in touch when your place is ready. Your three free months start when you go live.</p>
+      <p>Tell us a little about your studio and we’ll be in touch when your place is ready. Your three free months start when you go live, and then it’s £15 a month.</p>
     </div>
     <div class="perf" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-    <form class="coupon-form" method="post" action="https://formspree.io/f/mljbvwkw" data-endpoint="https://formspree.io/f/mljbvwkw" novalidate>
+    <form class="signup-form coupon-form" method="post" action="https://formspree.io/f/mljbvwkw" data-endpoint="https://formspree.io/f/mljbvwkw" novalidate>
       <input type="hidden" name="_subject" value="New founding studio sign-up">
+      <input type="hidden" name="form" value="Bottom of page">
       <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
       <label class="vh" for="f-name">Your name</label>
       <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
