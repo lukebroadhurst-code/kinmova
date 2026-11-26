@@ -445,6 +445,23 @@ html[data-view="member"] .week-band { padding-top: 0; }
 .offer-figure .btn { margin-top: 28px; }
 
 /* ---------- Questions ---------- */
+/* ---------- Founding story: a member going quiet, told by the founder ---------- */
+.story {
+  display: grid; grid-template-columns: repeat(12, 1fr); column-gap: var(--gap);
+  background: var(--sand); padding: var(--section) var(--m);
+}
+.story-head { grid-column: 1 / 6; align-self: start; position: sticky; top: 96px; }
+.story-head h2 { font-size: var(--s-head); }
+/* The founder's week: three weeks in, then the dots go quiet */
+.story-photo { margin-top: 40px; width: min(100%, 360px); aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: var(--night); }
+.story-photo img { width: 100%; height: 100%; object-fit: cover; }
+.story-dots { display: flex; gap: 10px; margin-top: 28px; }
+.story-dots li { width: clamp(28px, 3vw, 44px); aspect-ratio: 1; border-radius: 50%; background: var(--accent); }
+.story-dots li:nth-child(n+4) { background: var(--sky); }
+.story-body { grid-column: 7 / 13; display: grid; gap: 22px; line-height: 1.55; }
+.story-body p { max-width: 46ch; }
+.story-sign { margin-top: 8px; font-weight: 600; }
+
 .faq {
   display: grid; grid-template-columns: repeat(12, 1fr); column-gap: var(--gap);
   padding: var(--section) var(--m);
@@ -587,6 +604,8 @@ html[data-view="member"] .week-band { padding-top: 0; }
   .offer-words { grid-column: 1 / 7; }
   .offer-figure { grid-column: 7 / 13; }
   .faq h2 { grid-column: 1 / 13; position: static; margin-bottom: 32px; }
+  .story-head { grid-column: 1 / 13; position: static; margin-bottom: 40px; }
+  .story-body { grid-column: 1 / 13; }
   .faq-list { grid-column: 1 / 13; }
   .coupon { grid-column: 1 / 13; }
   .foot-cols nav { grid-column: 1 / 6; }
@@ -658,6 +677,9 @@ html[data-view="member"] .week-band { padding-top: 0; }
   .perf::after { right: -14px; }
   .coupon-form { padding: 32px 24px; }
   .coupon .share-step { padding: 32px 24px; }
+  .story-head h2 { font-size: 2.25rem; }
+  .story-photo { width: min(72%, 280px); }
+  .story-body p { max-width: none; }
   .view-toggle button { padding: 0 16px; }
 
   .foot-cols { grid-template-columns: 1fr; row-gap: 32px; }
