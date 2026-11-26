@@ -473,6 +473,18 @@ p { text-wrap: pretty; }
 .coupon-submit:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 .form-status { min-height: 1.5em; font-size: var(--s-small); }
 
+/* ---------- Page tracker: the week fills as you scroll (desktop) ---------- */
+.page-week { display: none; }
+@media (min-width: 1025px) {
+  .page-week { display: grid; gap: 8px; position: fixed; right: 14px; top: 50%; translate: 0 -50%; z-index: 20; transition: opacity 300ms var(--ease-out); }
+  .page-week i { width: 10px; height: 10px; border-radius: 50%; background: rgba(10, 10, 10, 0.16); transition: background-color 300ms var(--ease-out), scale 300ms var(--ease-out); }
+  .page-week i.lit { scale: 1.2; }
+  .page-week i.lit.t { background: var(--accent); }
+  .page-week i.lit.c { background: var(--ink); }
+  .page-week i.lit.r { background: #94c3de; }
+  .page-week.gone { opacity: 0; }
+}
+
 /* ---------- Footer ---------- */
 .claim { padding-bottom: clamp(72px, 7vw, 112px); }
 .foot { background: var(--night); color: var(--night-ink); padding: clamp(72px, 7vw, 112px) var(--m) 32px; }
@@ -492,7 +504,7 @@ p { text-wrap: pretty; }
 /* ---------- Entrances (only when scripting works) ---------- */
 @media (prefers-reduced-motion: no-preference) {
   .js [data-rise] { opacity: 0; transform: translateY(20px); animation: rise 800ms var(--ease-out) forwards; animation-delay: calc(var(--i, 0) * 80ms + 120ms); }
-  .js [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-out); transition-delay: calc(var(--i, 0) * 80ms); }
+  .js [data-reveal] { opacity: 0; transform: translateY(44px); transition: opacity 800ms var(--ease-out), transform 1000ms var(--ease-out); transition-delay: calc(var(--i, 0) * 80ms); }
   .js [data-reveal].is-in { opacity: 1; transform: none; }
   .js .day { transform: scale(0.4); opacity: 0; animation: pop 600ms var(--ease-out) forwards; }
   .js .day:nth-child(1) { animation-delay: 300ms; } .js .day:nth-child(2) { animation-delay: 380ms; }
@@ -501,8 +513,13 @@ p { text-wrap: pretty; }
   .js .day:nth-child(7) { animation-delay: 780ms; }
   .js .giant-dot { animation: drift 14s var(--ease-in-out) infinite alternate; }
   .js .hero-stage .ui { opacity: 0; transform: translateY(32px); animation: rise 900ms var(--ease-out) 260ms forwards; }
+  .js .wb { transition: background-color 360ms var(--ease-out), color 360ms var(--ease-out); }
+  .js .wb:not(.lit) { background: var(--surface); color: var(--muted); }
+  .js .wb.lit { animation: lit 520ms var(--ease-out); }
+  .js .inc-circle { will-change: scale, rotate; }
 }
 @keyframes rise { to { opacity: 1; transform: none; } }
+@keyframes lit { 0% { scale: 0.86; } 60% { scale: 1.07; } 100% { scale: 1; } }
 @keyframes pop { to { opacity: 1; transform: none; } }
 @keyframes drift { from { transform: translate(0, 0); } to { transform: translate(-3%, -4%); } }
 @media (prefers-reduced-motion: reduce) {
@@ -529,6 +546,8 @@ p { text-wrap: pretty; }
 
 /* ---------- Hero stacks below 900px ---------- */
 @media (max-width: 900px) {
+  .switch-sec { min-height: 0; padding-bottom: 0; }
+  .big-switch { position: relative; right: auto; left: auto; bottom: auto; width: fit-content; margin: 48px calc(var(--m) * -1) -6vw auto; font-size: clamp(64px, 19vw, 140px); }
   .hero { grid-template-columns: 1fr; padding: var(--m); gap: 0; min-height: 0; }
   .hero-stage { min-height: 0; margin-top: var(--gap); padding: 28px 0; }
   .hero-card { padding-bottom: 28px; }
@@ -551,9 +570,9 @@ p { text-wrap: pretty; }
   .does-foot { grid-column: 1 / 13; margin-top: 40px; }
   .slot { width: 1.5em; }
 
-  .switch-sec { min-height: 86svh; padding-top: 72px; }
+  .switch-sec { min-height: 0; padding-top: 72px; }
   .switch-words h2 { font-size: 2.25rem; }
-  .big-switch { right: auto; left: var(--m); bottom: -4vh; font-size: 27vw; }
+  .big-switch { font-size: 24vw; margin-bottom: -8vw; }
 
   .how { grid-template-columns: 1fr; min-height: 0; }
   .how-screen { order: 1; padding: 40px var(--m) 24px; min-height: 46svh; }

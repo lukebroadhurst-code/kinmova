@@ -27,7 +27,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   const word = section.querySelector('.swap-word');
   const label = control.querySelector('.bs-label');
   const value = control.querySelector('.bs-value');
-  control.addEventListener('click', () => {
+  const flip = () => {
     const on = control.getAttribute('aria-checked') !== 'true';
     control.setAttribute('aria-checked', String(on));
     section.dataset.state = on ? 'trained' : 'skipped';
@@ -35,7 +35,18 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     label.textContent = on ? 'Trained this week' : 'Skipped this week';
     value.textContent = on ? '23 of 32' : '9 of 32';
     control.setAttribute('aria-label', on ? 'Show members who trained this week' : 'Show members who skipped this week');
-  });
+  };
+  let touched = false;
+  control.addEventListener('click', (e) => { if (e.isTrusted) touched = true; flip(); });
+  // Flip once to 'skipped' and back the first time it's in view, so people see it's live.
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      io.disconnect();
+      setTimeout(() => { if (!touched) flip(); setTimeout(() => { if (!touched) flip(); }, 2400); }, 1100);
+    }, { threshold: 0.55 });
+    io.observe(section);
+  }
 })();
 
 // How it works: one slider drives the clause, the note and the app screen.
@@ -136,3 +147,59 @@ document.querySelectorAll('.signup-form').forEach((form) => {
     }
   });
 });
+
+// Scroll movement, all built from the week of dots. Transform and opacity only; nothing moves under reduced motion.
+(() => {
+  const wbs = [...document.querySelectorAll('.wb')];
+  if (reduceMotion) { wbs.forEach((w) => w.classList.add('lit')); return; }
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const ease = (t) => 1 - Math.pow(1 - t, 3);
+  const through = (el) => { const r = el.getBoundingClientRect(); return clamp((innerHeight - r.top) / (innerHeight + r.height), 0, 1); };
+  const dot = document.querySelector('.giant-dot');
+  const owner = document.querySelector('.hero-stage .ui');
+  const band = document.querySelector('.week-band');
+  const photo = document.querySelector('.inc-circle');
+  const tracker = document.querySelector('.page-week');
+  const trackerDots = tracker ? [...tracker.children] : [];
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const y = scrollY;
+    const vh = innerHeight;
+    const h = clamp(y / vh, 0, 1);
+    if (dot) { dot.style.translate = `${-h * 10}% ${-h * 14}%`; dot.style.scale = String(1 + h * 0.3); }
+    if (owner) owner.style.translate = `0 ${(-h * 60).toFixed(1)}px`;
+    if (band) { const p = through(band); wbs.forEach((w, i) => w.classList.toggle('lit', p > 0.2 + i * 0.065)); }
+    if (photo) { const p = ease(clamp(through(photo) * 2.2, 0, 1)); photo.style.scale = (0.55 + 0.45 * p).toFixed(3); photo.style.rotate = `${((1 - p) * -12).toFixed(2)}deg`; }
+    if (tracker) {
+      const pg = clamp(y / Math.max(1, document.documentElement.scrollHeight - vh), 0, 1);
+      const n = Math.round(pg * 7);
+      trackerDots.forEach((t, i) => t.classList.toggle('lit', i < n));
+      tracker.classList.toggle('gone', pg > 0.94);
+    }
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener('resize', update);
+  update();
+})();
+
+// The founding price counts down from £15 to £0 the first time it's seen.
+(() => {
+  const amt = document.querySelector('.figure .amt');
+  if (!amt || reduceMotion || !('IntersectionObserver' in window)) return;
+  const r = amt.getBoundingClientRect();
+  if (r.top < innerHeight) return; // already on screen: leave it at £0
+  amt.textContent = '15';
+  const io = new IntersectionObserver(([entry]) => {
+    if (!entry.isIntersecting) return;
+    io.disconnect();
+    const start = performance.now();
+    const run = (now) => {
+      const t = Math.min(1, (now - start) / 1100);
+      amt.textContent = String(Math.round(15 * (1 - (1 - Math.pow(1 - t, 3)))));
+      if (t < 1) requestAnimationFrame(run);
+    };
+    setTimeout(() => requestAnimationFrame(run), 350);
+  }, { threshold: 0.6 });
+  io.observe(amt);
+})();
