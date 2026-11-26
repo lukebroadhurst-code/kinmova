@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kinmova brand sheet</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .sheet { padding: 0 var(--m) 96px; }
+  .sheet section { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: var(--gap); padding-top: 112px; }
+  .sheet h2 { grid-column: 1 / 5; font-size: var(--s-lead); letter-spacing: -0.02em; line-height: 1.1; }
+  .sheet .lead { grid-column: 1 / 5; margin-top: 16px; max-width: 34ch; }
+  .sheet .side { grid-column: 1 / 5; align-self: start; }
+  .sheet .body { grid-column: 5 / 13; display: grid; gap: var(--gap); }
+  .sheet-top { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); padding: var(--m) 0 0; }
+  .sheet-top .card { background: var(--sand); border-radius: var(--r); padding: 48px; display: flex; flex-direction: column; justify-content: space-between; gap: 48px; min-height: 520px; }
+  .sheet-top h1 { font-size: var(--s-head); max-width: 12ch; }
+  .sheet-top p { max-width: 44ch; }
+  .sheet-top .stage { background: var(--night); border-radius: var(--r); display: grid; place-items: center; padding: 48px; }
+  .sheet-top .stage img { width: min(100%, 520px); }
+  .tile { border-radius: var(--r); padding: 40px; display: grid; place-items: center start; min-height: 200px; }
+  .tile img { display: block; }
+  .tiles-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+  .note { font-size: var(--s-small); color: var(--muted); margin-top: 8px; }
+  .dark .note { color: #b9c4c9; }
+  .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: var(--gap); }
+  .days div { display: grid; gap: 10px; justify-items: start; align-content: start; }
+  .palette { background: var(--paper); border-radius: var(--r); padding: var(--gap); display: grid; gap: var(--gap); }
+  .days i { display: block; width: 100%; aspect-ratio: 1; border-radius: 50%; }
+  .days b { font-weight: 600; }
+  .days span { font-size: var(--s-small); }
+  .colours { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); }
+  .colour { border-radius: var(--r); padding: 20px; min-height: 220px; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; }
+  .colour strong { font-size: var(--s-body); font-weight: 600; }
+  .colour p { font-size: var(--s-small); }
+  .hex { font-variant-numeric: tabular-nums; }
+  .props { display: grid; grid-template-columns: 58fr 22fr 14fr 6fr; height: 56px; border-radius: 999px; overflow: hidden; }
+  .props span { display: flex; align-items: center; padding-left: 16px; font-size: var(--s-small); }
+  .type-row { background: var(--paper); border-radius: var(--r); padding: 28px 32px; display: grid; grid-template-columns: 1fr 200px; gap: 24px; align-items: center; }
+  .type-row .spec { font-size: var(--s-small); color: var(--muted); }
+  .t-display { font-size: clamp(2.5rem, 1.3rem + 3.6vw, 4.5rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1; }
+  .t-head { font-size: var(--s-lead); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+  .t-body { font-size: var(--s-body); }
+  .t-small { font-size: var(--s-small); }
+  .voice-cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+  .voice-box { background: var(--paper); border-radius: var(--r); padding: 28px 32px; }
+  .voice-box h3 { font-size: var(--s-body); font-weight: 600; margin: 0 0 12px; }
+  .voice-box li { display: grid; grid-template-columns: 12px 1fr; gap: 12px; align-items: baseline; padding: 4px 0; }
+  .voice-box li::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); transform: translateY(1px); }
+  .voice-box.avoid li::before { background: var(--ink); }
+  .swap { background: var(--paper); border-radius: var(--r); padding: 28px 32px; display: grid; gap: 14px; }
+  .swap p { margin: 0; }
+  .swap .before { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 1px; }
+  .swap .after { font-size: var(--s-lead); font-weight: 500; letter-spacing: -0.015em; line-height: 1.2; }
+  .icons { display: flex; align-items: flex-end; gap: 32px; flex-wrap: wrap; }
+  .icons figure { display: grid; gap: 10px; justify-items: start; }
+  .icons figcaption { font-size: var(--s-small); }
+  .social img { width: 100%; height: auto; border-radius: var(--r); }
+  .files { background: var(--paper); border-radius: var(--r); padding: 20px 32px; }
+  .files li { display: grid; grid-template-columns: 1fr auto; gap: 16px; padding: 8px 0; }
+  .files a { font-weight: 500; }
+  .files span { font-size: var(--s-small); color: var(--muted); text-align: right; }
+  @media (max-width: 900px) {
+    .sheet h2, .sheet .lead, .sheet .side, .sheet .body { grid-column: 1 / 13; }
+    .sheet .body { margin-top: 32px; }
+    .sheet-top { grid-template-columns: 1fr; }
+    .sheet-top .card { min-height: 0; }
+    .colours { grid-template-columns: 1fr 1fr; }
+    .tiles-2, .voice-cols { grid-template-columns: 1fr; }
+    .type-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .days { gap: 6px; }
+    .days span { display: none; }
+    .props span { font-size: 0; }
+    .colours { grid-template-columns: 1fr; }
+    .tile { padding: 28px 20px; }
+    .tile img { max-width: 100%; height: auto !important; }
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <div class="sheet-top">
+    <div class="card">
+      <ol class="week week--card" aria-label="The Kinmova week: Monday trained, Tuesday class, Wednesday trained, Thursday class, Friday rest, Saturday trained, Sunday rest">
+        <li class="day day--trained"></li><li class="day day--class"></li><li class="day day--trained"></li><li class="day day--class"></li><li class="day day--rest"></li><li class="day day--trained"></li><li class="day day--rest"></li>
+      </ol>
+      <div>
+        <h1>The Kinmova brand</h1>
+        <p style="margin-top:24px">Everything here comes from one idea. A member’s week is seven days: two in the studio with their class, and five in between. Kinmova is for those five, so the brand is built from a week of dots, black for class days and magenta for the days someone trained on their own.</p>
+      </div>
+    </div>
+    <div class="stage"><img src="brand/kinmova-logo-stacked-reversed.svg" alt="The Kinmova logo: seven dots for a week, above the name in lowercase" width="361" height="122"></div>
+  </div>
+
+  <section aria-labelledby="logo-title">
+    <div class="side">
+      <h2 id="logo-title">The logo</h2>
+      <p class="lead">The name is always lowercase in the logo, followed or topped by the week. In a sentence it’s written Kinmova, with a capital K.</p>
+    </div>
+    <div class="body">
+      <div class="tiles-2">
+        <div class="tile" style="background:var(--sand)"><div><img src="brand/kinmova-logo.svg" alt="Kinmova logo, side by side" width="320" height="54" style="height:54px;width:auto"><p class="note">Side by side, for headers, letters and slides</p></div></div>
+        <div class="tile dark" style="background:var(--night)"><div><img src="brand/kinmova-logo-reversed.svg" alt="Kinmova logo, side by side, on black" width="320" height="54" style="height:54px;width:auto"><p class="note">On black, class days turn sand</p></div></div>
+        <div class="tile" style="background:var(--sky)"><div><img src="brand/kinmova-logo-stacked.svg" alt="Kinmova logo, stacked" width="236" height="80" style="height:80px;width:auto"><p class="note">Stacked, where there’s more height than width</p></div></div>
+        <div class="tile" style="background:var(--paper)"><div><img src="brand/kinmova-mark.svg" alt="The Kinmova week on its own" width="234" height="40" style="height:40px;width:auto"><p class="note">The week on its own, only where the name is already close by</p></div></div>
+      </div>
+      <p>Keep clear space the width of one dot all the way round. Don’t go smaller than 120px wide for the side-by-side logo; below that, use the icon. Never reorder or recolour the dots, set the name in another typeface, stretch it, outline it, or put it on a photograph without a solid panel behind.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="dots-title">
+    <div class="side">
+      <h2 id="dots-title">What the dots mean</h2>
+      <p class="lead">The order never changes. It’s a typical member’s week, Monday to Sunday.</p>
+    </div>
+    <div class="body">
+      <div class="days">
+        <div><i style="background:var(--accent)"></i><b>Mon</b><span>Trained on their own</span></div>
+        <div><i style="background:var(--ink)"></i><b>Tue</b><span>Class</span></div>
+        <div><i style="background:var(--accent)"></i><b>Wed</b><span>Trained on their own</span></div>
+        <div><i style="background:var(--ink)"></i><b>Thu</b><span>Class</span></div>
+        <div><i style="background:#94c3de"></i><b>Fri</b><span>Rest</span></div>
+        <div><i style="background:var(--accent)"></i><b>Sat</b><span>Trained on their own</span></div>
+        <div><i style="background:#94c3de"></i><b>Sun</b><span>Rest</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="colour-title">
+    <div class="side">
+      <h2 id="colour-title">Colours</h2>
+      <p class="lead">Mostly sky and sand, firm black, and magenta kept back for the one thing that matters on each screen.</p>
+    </div>
+    <div class="body">
+      <div class="palette">
+      <div class="colours">
+        <div class="colour" style="background:var(--sky)"><strong>Sky</strong><p><span class="hex">#cbe4f2</span><br>The page ground</p></div>
+        <div class="colour" style="background:var(--sand)"><strong>Sand</strong><p><span class="hex">#f1e3b5</span><br>Cards, panels and class days on black</p></div>
+        <div class="colour" style="background:var(--ink);color:var(--night-ink)"><strong>Black</strong><p><span class="hex">#0a0a0a</span><br>All text, class days and dark panels</p></div>
+        <div class="colour" style="background:var(--accent);color:#fff"><strong>Magenta</strong><p><span class="hex">#b0298f</span><br>Buttons and training days only</p></div>
+        <div class="colour" style="background:#94c3de"><strong>Deep sky</strong><p><span class="hex">#94c3de</span><br>Rest days in the logo</p></div>
+        <div class="colour" style="background:#3d5260;color:#fff"><strong>Slate</strong><p><span class="hex">#3d5260</span><br>Rest days on black</p></div>
+        <div class="colour" style="background:var(--sun)"><strong>Sun</strong><p><span class="hex">#ffc013</span><br>One highlight field per page at most</p></div>
+        <div class="colour" style="background:#eef2f5"><strong>White</strong><p><span class="hex">#ffffff</span><br>App screens only (shown here on a grey tile)</p></div>
+      </div>
+      <div class="props" role="img" aria-label="Rough proportions: sky 58%, black 22%, sand 14%, magenta 6%">
+        <span style="background:var(--sky)">Sky</span><span style="background:var(--ink);color:#fff">Black</span><span style="background:var(--sand)">Sand</span><span style="background:var(--accent);color:#fff">M</span>
+      </div>
+      </div>
+      <p>Text is always black on light colours and white on magenta. Keep body text off sun and magenta fields except for buttons and short labels.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="type-title">
+    <div class="side">
+      <h2 id="type-title">Type</h2>
+      <p class="lead">One family, Albert Sans, free from Google Fonts. Its round letters match the dots. Use three weights and four sizes.</p>
+    </div>
+    <div class="body">
+      <div class="type-row"><p class="t-display">Coach the days between classes</p><p class="spec">Headlines<br>600 · 40–72px<br>tracking −3.5%, leading 1.0</p></div>
+      <div class="type-row"><p class="t-head">What’s included</p><p class="spec">Section titles and big lines<br>600 · 24–34px<br>tracking −2%</p></div>
+      <div class="type-row"><p class="t-body">Members book a class in two taps and log the training you set them between classes.</p><p class="spec">Body text<br>400, 500 for emphasis<br>17–19px, leading 1.5</p></div>
+      <div class="type-row"><p class="t-small">A women’s exercise class at the Grace Bros gymnasium in Sydney, around 1937.</p><p class="spec">Captions and notes<br>400 · 14–15px</p></div>
+      <p>Sentence case everywhere, never all capitals for more than a word or two. Left-align text, except the one centred moment on a page.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="voice-title">
+    <div class="side">
+      <h2 id="voice-title">How Kinmova sounds</h2>
+      <p class="lead">Like a good coach talking to a studio owner after the last class of the night: warm, plain and specific, with a bit of humour when it fits.</p>
+    </div>
+    <div class="body">
+      <p>Write in full sentences that run on naturally, joined with “so”, “and” and “but”, rather than a string of short fragments. Name real days, times and numbers, so it’s “Wednesday” and “23 of 32” rather than “regularly” and “most”. Talk to the owner as “you” and about their people as members. One joke at most, and never at a member’s expense.</p>
+      <div class="voice-cols">
+        <div class="voice-box">
+          <h3>Words we use</h3>
+          <ul>
+            <li>members</li>
+            <li>class, book, cancel</li>
+            <li>between classes</li>
+            <li>trained, sets, a personal best</li>
+            <li>your studio, your club</li>
+            <li>well done, a nudge</li>
+            <li>founding studios</li>
+          </ul>
+        </div>
+        <div class="voice-box avoid">
+          <h3>Words we avoid</h3>
+          <ul>
+            <li>users, clients or customers, for members</li>
+            <li>unlock, empower, elevate, supercharge</li>
+            <li>seamless, all-in-one, game-changer</li>
+            <li>fitness journey, crush your goals</li>
+            <li>revolution, disrupt</li>
+            <li>“not just X, it’s Y”</li>
+          </ul>
+        </div>
+      </div>
+      <div class="swap">
+        <p class="before">Unlock seamless engagement with our all-in-one member experience platform.</p>
+        <p class="after">Members book, pay and log their training in one app, so there’s only one thing for you to run.</p>
+      </div>
+      <div class="swap">
+        <p class="before">Empower your clients to crush their fitness goals between sessions!</p>
+        <p class="after">Give your members a few sets for Wednesday, and on Thursday you’ll see who did them.</p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="icons-title">
+    <div class="side">
+      <h2 id="icons-title">Icon and share image</h2>
+      <p class="lead">The icon is two days from the week, a class day and a training day, on black. The share image shows when someone posts the link.</p>
+    </div>
+    <div class="body">
+      <div class="icons">
+        <figure><img src="brand/icon-512.png" alt="Kinmova app icon at 180 pixels" width="180" height="180"><figcaption>App icon, 180px</figcaption></figure>
+        <figure><img src="brand/favicon-32.png" alt="Kinmova icon at 32 pixels" width="32" height="32"><figcaption>32px</figcaption></figure>
+        <figure><img src="brand/favicon-16.png" alt="Kinmova icon at 16 pixels" width="16" height="16"><figcaption>16px</figcaption></figure>
+      </div>
+      <figure class="social"><img src="brand/social.png" alt="Kinmova share image: the week of dots, the name, and the line Coach the days between classes" width="1200" height="630" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="files-title">
+    <div class="side">
+      <h2 id="files-title">Files</h2>
+      <p class="lead">All in the brand folder. The logos are outlines, so they work without the font installed.</p>
+    </div>
+    <div class="body">
+      <ul class="files">
+        <li><a href="brand/kinmova-logo.svg">kinmova-logo.svg</a><span>Side by side, on light</span></li>
+        <li><a href="brand/kinmova-logo-reversed.svg">kinmova-logo-reversed.svg</a><span>Side by side, on black</span></li>
+        <li><a href="brand/kinmova-logo-stacked.svg">kinmova-logo-stacked.svg</a><span>Stacked, on light</span></li>
+        <li><a href="brand/kinmova-logo-stacked-reversed.svg">kinmova-logo-stacked-reversed.svg</a><span>Stacked, on black</span></li>
+        <li><a href="brand/kinmova-wordmark.svg">kinmova-wordmark.svg</a><span>Name only, black</span></li>
+        <li><a href="brand/kinmova-wordmark-reversed.svg">kinmova-wordmark-reversed.svg</a><span>Name only, sand</span></li>
+        <li><a href="brand/kinmova-mark.svg">kinmova-mark.svg</a><span>The week only</span></li>
+        <li><a href="brand/kinmova-icon.svg">kinmova-icon.svg</a><span>App icon, any size</span></li>
+        <li><a href="brand/icon-512.png">icon-512.png</a><span>App icon, 512px</span></li>
+        <li><a href="brand/social.png">social.png</a><span>Share image, 1200 × 630</span></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>
