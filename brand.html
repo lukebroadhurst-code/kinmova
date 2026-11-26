@@ -53,6 +53,14 @@
   .voice-box li { display: grid; grid-template-columns: 12px 1fr; gap: 12px; align-items: baseline; padding: 4px 0; }
   .voice-box li::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); transform: translateY(1px); }
   .voice-box.avoid li::before { background: var(--ink); }
+  .traits { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+  .trait { background: var(--sand); border-radius: var(--r); padding: 28px 32px; display: grid; gap: 8px; align-content: start; }
+  .trait h3 { font-size: var(--s-lead); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 4px; }
+  .trait .eg { font-weight: 500; }
+  .places { background: var(--paper); border-radius: var(--r); padding: 12px 32px; }
+  .places li { display: grid; grid-template-columns: 200px 1fr; gap: 24px; padding: 14px 0; align-items: baseline; }
+  .places span { font-size: var(--s-small); color: var(--muted); }
+  .places p { font-size: var(--s-body); }
   .swap { background: var(--paper); border-radius: var(--r); padding: 28px 32px; display: grid; gap: 14px; }
   .swap p { margin: 0; }
   .swap .before { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 1px; }
@@ -71,7 +79,8 @@
     .sheet-top { grid-template-columns: 1fr; }
     .sheet-top .card { min-height: 0; }
     .colours { grid-template-columns: 1fr 1fr; }
-    .tiles-2, .voice-cols { grid-template-columns: 1fr; }
+    .tiles-2, .voice-cols, .traits { grid-template-columns: 1fr; }
+    .places li { grid-template-columns: 1fr; gap: 4px; }
     .type-row { grid-template-columns: 1fr; }
   }
   @media (max-width: 560px) {
@@ -165,7 +174,7 @@
       <p class="lead">One family, Albert Sans, free from Google Fonts. Its round letters match the dots. Use three weights and four sizes.</p>
     </div>
     <div class="body">
-      <div class="type-row"><p class="t-display">Coach the days between classes</p><p class="spec">Headlines<br>600 · 40–72px<br>tracking −3.5%, leading 1.0</p></div>
+      <div class="type-row"><p class="t-display">See who’s slipping before they quit</p><p class="spec">Headlines<br>600 · 40–72px<br>tracking −3.5%, leading 1.0</p></div>
       <div class="type-row"><p class="t-head">What’s included</p><p class="spec">Section titles and big lines<br>600 · 24–34px<br>tracking −2%</p></div>
       <div class="type-row"><p class="t-body">Members book a class in two taps and log the training you set them between classes.</p><p class="spec">Body text<br>400, 500 for emphasis<br>17–19px, leading 1.5</p></div>
       <div class="type-row"><p class="t-small">A women’s exercise class at the Grace Bros gymnasium in Sydney, around 1937.</p><p class="spec">Captions and notes<br>400 · 14–15px</p></div>
@@ -176,42 +185,54 @@
   <section aria-labelledby="voice-title">
     <div class="side">
       <h2 id="voice-title">How Kinmova sounds</h2>
-      <p class="lead">Like a good coach talking to a studio owner after the last class of the night: warm, plain and specific, with a bit of humour when it fits.</p>
+      <p class="lead">Like the one who notices: the regular at your club who knows everyone’s name, clocks who’s missing, says well done without a fuss, and isn’t above a dry remark.</p>
     </div>
     <div class="body">
-      <p>Write in full sentences that run on naturally, joined with “so”, “and” and “but”, rather than a string of short fragments. Name real days, times and numbers, so it’s “Wednesday” and “23 of 32” rather than “regularly” and “most”. Talk to the owner as “you” and about their people as members. One joke at most, and never at a member’s expense.</p>
+      <p>Noticing is what Kinmova does for a living, since it shows owners who’s kept it up and who’s slipping, so the voice notices too. Write in full sentences that run on naturally, joined with “so”, “and” and “but”, rather than a string of short fragments. Talk to owners as “you” and about their people as members.</p>
+      <div class="traits">
+        <div class="trait"><h3>It notices the small stuff</h3><p>Name the day, the set and the number.</p><p class="eg">“Sam held the dead hang for 45 seconds on Wednesday.”</p></div>
+        <div class="trait"><h3>It’s dry, never hyped</h3><p>Understatement does the cheering. No exclamation marks, no fire emojis.</p><p class="eg">“Not bad for a wet Wednesday.”</p></div>
+        <div class="trait"><h3>It says the awkward thing kindly</h3><p>Say who’s slipping out loud, without guilt-tripping anyone.</p><p class="eg">“Tom’s gone quiet. It’s nine days since his last class.”</p></div>
+        <div class="trait"><h3>It thinks in weeks</h3><p>This week, the days in between, by Thursday. Never goals, journeys or transformations.</p><p class="eg">“Two things to do before Thursday’s Pull.”</p></div>
+      </div>
       <div class="voice-cols">
         <div class="voice-box">
-          <h3>Words we use</h3>
+          <h3>Our own words</h3>
           <ul>
-            <li>members</li>
-            <li>class, book, cancel</li>
-            <li>between classes</li>
-            <li>trained, sets, a personal best</li>
-            <li>your studio, your club</li>
-            <li>well done, a nudge</li>
-            <li>founding studios</li>
+            <li>“gone quiet”, for a member drifting off</li>
+            <li>“kept it up”, for training between classes</li>
+            <li>the days in between</li>
+            <li>a nudge</li>
+            <li>the regulars</li>
+            <li>members, never users, clients or customers</li>
           </ul>
         </div>
         <div class="voice-box avoid">
-          <h3>Words we avoid</h3>
+          <h3>Words we never use</h3>
           <ul>
-            <li>users, clients or customers, for members</li>
-            <li>unlock, empower, elevate, supercharge</li>
-            <li>seamless, all-in-one, game-changer</li>
-            <li>fitness journey, crush your goals</li>
-            <li>revolution, disrupt</li>
+            <li>journey, transform, transformation</li>
+            <li>crush it, smash it, beast mode</li>
+            <li>unlock, empower, elevate, game-changer</li>
+            <li>seamless, all-in-one</li>
+            <li>“community” as a buzzword</li>
             <li>“not just X, it’s Y”</li>
           </ul>
         </div>
       </div>
+      <ul class="places">
+        <li><span>Note to an owner</span><p>Three of your Pull class have gone quiet this week. Tom’s been away longest, at nine days. Want to send him a nudge?</p></li>
+        <li><span>Note to a member</span><p>Dani’s set you two things for today, and one of them is the dead hangs you’ve been putting off.</p></li>
+        <li><span>A member’s personal best</span><p>45 seconds on the dead hang, which is more than double what you managed in September.</p></li>
+        <li><span>An empty week</span><p>Nothing booked yet this week. Thursday’s Pull has three places left.</p></li>
+        <li><span>A post for owners</span><p>Genuine question for studio owners: how do you spot a member who’s gone quiet before they cancel?</p></li>
+      </ul>
       <div class="swap">
         <p class="before">Unlock seamless engagement with our all-in-one member experience platform.</p>
-        <p class="after">Members book, pay and log their training in one app, so there’s only one thing for you to run.</p>
+        <p class="after">Kinmova shows you who’s gone quiet while there’s still time to do something about it.</p>
       </div>
       <div class="swap">
-        <p class="before">Empower your clients to crush their fitness goals between sessions!</p>
-        <p class="after">Give your members a few sets for Wednesday, and on Thursday you’ll see who did them.</p>
+        <p class="before">Amazing work Sam!! You’re crushing your fitness journey!</p>
+        <p class="after">45 seconds on the dead hang, which is more than double what you managed in September.</p>
       </div>
     </div>
   </section>
