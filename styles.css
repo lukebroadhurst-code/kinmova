@@ -50,6 +50,11 @@ p { text-wrap: pretty; }
 ::selection { background: var(--accent); color: var(--accent-ink); }
 .vh { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 .num { font-variant-numeric: tabular-nums; }
+[hidden] { display: none !important; }
+
+/* Studio or member view: the head script sets data-view on <html> from ?for=members */
+html:not([data-view="member"]) [data-for="member"],
+html[data-view="member"] [data-for="studio"] { display: none !important; }
 
 /* Buttons: round, from the dot */
 .btn {
@@ -78,6 +83,16 @@ p { text-wrap: pretty; }
   padding: 0 clamp(24px, 3vw, 44px) 36px;
   overflow: hidden;
 }
+.view-toggle { display: none; }
+.js .view-toggle { display: inline-flex; margin-top: 22px; padding: 4px; gap: 4px; border-radius: 999px; background: #fff; }
+.view-toggle button {
+  min-height: 44px; padding: 0 20px; border: 0; border-radius: 999px; cursor: pointer;
+  background: transparent; color: var(--ink);
+  font: 500 var(--s-small) "Albert Sans", system-ui, sans-serif;
+  transition: background-color 200ms var(--ease-out), color 200ms var(--ease-out);
+}
+.view-toggle button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.view-toggle button:not([aria-pressed="true"]):hover { background: var(--sky); }
 .week { display: flex; gap: 10px; }
 .week--card {
   align-self: stretch; justify-content: space-between;
@@ -110,6 +125,33 @@ p { text-wrap: pretty; }
 .hero-submit { grid-column: 1 / -1; width: 100%; margin-top: 2px; border: 0; cursor: pointer; }
 .hero-form .form-status { grid-column: 1 / -1; font-size: var(--s-small); text-align: center; }
 .hero-form .form-status:empty { display: none; }
+.hero-form .wide { grid-column: 1 / -1; }
+
+/* After a member signs up: a message to send their club */
+.share-step { width: min(100%, 540px); margin-top: 28px; display: grid; gap: 12px; text-align: left; }
+.share-thanks { font-weight: 500; }
+.share-title { font-size: var(--s-lead); font-weight: 600; letter-spacing: -0.02em; line-height: 1.05; outline: none; }
+.share-text {
+  width: 100%; padding: 14px 16px; border: 0; border-radius: 14px; resize: vertical;
+  background: #fff; color: var(--ink);
+  font: 400 var(--s-body)/1.45 "Albert Sans", system-ui, sans-serif;
+}
+.share-text:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.share-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.share-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0 22px; border: 0; border-radius: 999px; cursor: pointer;
+  background: #fff; color: var(--ink); text-decoration: none;
+  font: 500 var(--s-small) "Albert Sans", system-ui, sans-serif;
+  transition: transform 180ms var(--ease-out);
+}
+.share-btn:active { transform: scale(0.97); }
+.share-btn:first-child { background: var(--accent); color: #fff; }
+.share-status { font-size: var(--s-small); min-height: 1.5em; }
+.coupon .share-step { width: auto; margin: 0; padding: 48px; align-content: center; }
+.coupon .share-text { background: rgba(0, 0, 0, 0.2); color: #fff; }
+.coupon .share-text:focus-visible { outline-color: #fff; }
+.coupon .share-btn:first-child { background: var(--ink); }
 .hero-links { margin-top: auto; padding-top: 48px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 28px; font-size: var(--s-small); }
 .hero-links a { text-decoration: none; padding: 6px 0; }
 .hero-links a:hover { text-decoration: underline; }
@@ -340,6 +382,9 @@ p { text-wrap: pretty; }
 .wb--trained { background: var(--accent); color: var(--accent-ink); }
 .wb--class { background: var(--ink); color: var(--night-ink); }
 .wb--rest { background: var(--sand); }
+/* Member view: the studio sections between these are gone, so close up the gaps they leave */
+html[data-view="member"] .week-band { padding-top: 0; }
+#member-questions { padding-bottom: 0; }
 
 /* ---------- What's included ---------- */
 .included {
@@ -518,6 +563,10 @@ p { text-wrap: pretty; }
   .js .wb.lit { animation: lit 520ms var(--ease-out); }
   .js .inc-circle { will-change: scale, rotate; }
 }
+/* Phones: a shorter, quicker rise, so content is there by the time your eye gets to it */
+@media (prefers-reduced-motion: no-preference) and (max-width: 760px) {
+  .js [data-reveal] { transform: translateY(20px); transition-duration: 450ms, 600ms; transition-delay: calc(var(--i, 0) * 40ms); }
+}
 @keyframes rise { to { opacity: 1; transform: none; } }
 @keyframes lit { 0% { scale: 0.86; } 60% { scale: 1.07; } 100% { scale: 1; } }
 @keyframes pop { to { opacity: 1; transform: none; } }
@@ -608,6 +657,8 @@ p { text-wrap: pretty; }
   .perf::before { left: -14px; }
   .perf::after { right: -14px; }
   .coupon-form { padding: 32px 24px; }
+  .coupon .share-step { padding: 32px 24px; }
+  .view-toggle button { padding: 0 16px; }
 
   .foot-cols { grid-template-columns: 1fr; row-gap: 32px; }
   .foot-cols nav, .credits { grid-column: 1; }

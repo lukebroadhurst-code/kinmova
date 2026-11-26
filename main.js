@@ -12,7 +12,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
       entry.target.classList.add('is-in');
       io.unobserve(entry.target);
     }
-  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+  }, { rootMargin: '0px 0px -24px 0px', threshold: 0 }); // start as soon as it reaches the screen, so nothing sits blank while you scroll
   targets.forEach((el) => io.observe(el));
   window.addEventListener('load', () => setTimeout(() => {
     targets.forEach((el) => { const r = el.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) el.classList.add('is-in'); });
@@ -119,14 +119,74 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   start();
 })();
 
-// Sign-up forms (top and bottom of the page). Each posts to the Formspree endpoint in its data-endpoint.
+// Studio or member view. The head script has already set data-view from ?for=members, so there's no flash.
+(() => {
+  const root = document.documentElement;
+  const buttons = document.querySelectorAll('[data-set-view]');
+  const set = (view, save) => {
+    if (view === 'member') root.dataset.view = 'member'; else delete root.dataset.view;
+    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setView === view)));
+    if (save) {
+      const url = new URL(location.href);
+      if (view === 'member') url.searchParams.set('for', 'members'); else url.searchParams.delete('for');
+      history.replaceState(null, '', url);
+      dispatchEvent(new Event('resize')); // the page height changed, so the scroll movement re-measures
+    }
+  };
+  buttons.forEach((b) => b.addEventListener('click', () => set(b.dataset.setView, true)));
+  set(root.dataset.view === 'member' ? 'member' : 'studio', false);
+})();
+
+// After a member signs up: a ready-made message to send their club, through the share sheet, WhatsApp, email or a copy.
+const SITE = 'https://lukebroadhurst-code.github.io/kinmova/';
+let shareCount = 0;
+const showShare = (form) => {
+  const first = form.elements.namedItem('name').value.trim().split(/\s+/)[0];
+  const clubs = form.elements.namedItem('clubs').value.split(/,|\n|&|\band\b/i).map((c) => c.trim()).filter(Boolean);
+  const owner = form.elements.namedItem('owner').value.trim();
+  const ownerEmail = /^\S+@\S+\.\S+$/.test(owner) ? owner : '';
+  const ownerName = owner && !ownerEmail ? owner.split(/\s+/)[0] : '';
+  const ask = clubs.length === 1 ? `Any chance ${clubs[0]} could go on it?` : 'Any chance you could go on it?';
+  const message = `Hi${ownerName ? ` ${ownerName}` : ''}, I’ve signed up for Kinmova. It’s an app for booking classes and logging the training in between, and one account works at every club that’s on it. ${ask} Founding studios get their first 3 months free: ${SITE}`;
+
+  const step = document.getElementById('share-tpl').content.firstElementChild.cloneNode(true);
+  const text = step.querySelector('.share-text');
+  const status = step.querySelector('.share-status');
+  const native = step.querySelector('.share-native');
+  const wa = step.querySelector('.share-wa');
+  const mail = step.querySelector('.share-mail');
+  text.id = `share-text-${++shareCount}`;
+  step.querySelector('label').htmlFor = text.id;
+  step.querySelector('.share-thanks').textContent = `Thanks${first ? `, ${first}` : ''}. You’re on the list.`;
+  text.value = message;
+  const subject = `Kinmova${clubs.length === 1 ? ` for ${clubs[0]}` : ''}`;
+  const links = () => {
+    wa.href = `https://wa.me/?text=${encodeURIComponent(text.value)}`;
+    mail.href = `mailto:${ownerEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text.value)}`;
+  };
+  links();
+  text.addEventListener('input', links);
+  if (navigator.share) native.addEventListener('click', () => navigator.share({ text: text.value }).catch(() => {}));
+  else native.remove();
+  step.querySelector('.share-copy').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(text.value); } catch { text.select(); document.execCommand('copy'); }
+    status.textContent = 'Copied. Paste it wherever you talk to your club.';
+  });
+  form.hidden = true;
+  form.after(step);
+  step.querySelector('.share-title').focus({ preventScroll: true });
+};
+
+// Sign-up forms. Each posts to the Formspree endpoint in its data-endpoint: studios to one form, members to another.
 document.querySelectorAll('.signup-form').forEach((form) => {
   const status = form.querySelector('.form-status');
+  const member = form.dataset.kind === 'member';
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!form.checkValidity()) {
       const first = form.querySelector(':invalid');
-      status.textContent = first === form.email ? 'Please add an email address we can reach you on.' : 'Please fill in all four boxes.';
+      status.textContent = first === form.email ? 'Please add an email address we can reach you on.'
+        : member ? 'Please add your name, your email and where you train.' : 'Please fill in all four boxes.';
       first?.focus();
       return;
     }
@@ -139,12 +199,14 @@ document.querySelectorAll('.signup-form').forEach((form) => {
     try {
       const res = await fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
       if (!res.ok) throw new Error(String(res.status));
-      const studio = form.studio.value.trim();
-      form.reset();
-      status.textContent = `Thanks. ${studio}’s place is saved, and we’ll be in touch when it’s ready.`;
     } catch {
       status.textContent = 'That didn’t send. Please try again in a minute.';
+      return;
     }
+    if (member) { status.textContent = ''; showShare(form); return; }
+    const studio = form.studio.value.trim();
+    form.reset();
+    status.textContent = `Thanks. ${studio}’s place is saved, and we’ll be in touch when it’s ready.`;
   });
 });
 
@@ -156,7 +218,7 @@ document.querySelectorAll('.signup-form').forEach((form) => {
   const ease = (t) => 1 - Math.pow(1 - t, 3);
   const through = (el) => { const r = el.getBoundingClientRect(); return clamp((innerHeight - r.top) / (innerHeight + r.height), 0, 1); };
   const dot = document.querySelector('.giant-dot');
-  const owner = document.querySelector('.hero-stage .ui');
+  const owners = document.querySelectorAll('.hero-stage .ui');
   const band = document.querySelector('.week-band');
   const photo = document.querySelector('.inc-circle');
   const tracker = document.querySelector('.page-week');
@@ -168,7 +230,7 @@ document.querySelectorAll('.signup-form').forEach((form) => {
     const vh = innerHeight;
     const h = clamp(y / vh, 0, 1);
     if (dot) { dot.style.translate = `${-h * 10}% ${-h * 14}%`; dot.style.scale = String(1 + h * 0.3); }
-    if (owner) owner.style.translate = `0 ${(-h * 60).toFixed(1)}px`;
+    owners.forEach((o) => { o.style.translate = `0 ${(-h * 60).toFixed(1)}px`; });
     if (band) { const p = through(band); wbs.forEach((w, i) => w.classList.toggle('lit', p > 0.2 + i * 0.065)); }
     if (photo) { const p = ease(clamp(through(photo) * 2.2, 0, 1)); photo.style.scale = (0.55 + 0.45 * p).toFixed(3); photo.style.rotate = `${((1 - p) * -12).toFixed(2)}deg`; }
     if (tracker) {

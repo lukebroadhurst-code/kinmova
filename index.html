@@ -20,7 +20,7 @@
 <meta property="og:image:alt" content="The Kinmova week of dots and the line See who’s slipping before they quit">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://lukebroadhurst-code.github.io/kinmova/brand/social.png">
-<script>document.documentElement.classList.add('js')</script>
+<script>(function (d) { d.classList.add('js'); if (/[?&]for=members?\b/.test(location.search)) d.dataset.view = 'member'; })(document.documentElement)</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -34,6 +34,10 @@
 
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-card">
+    <div class="view-toggle" role="group" aria-label="Show this page for">
+      <button type="button" data-set-view="studio" aria-pressed="true">I run a studio</button>
+      <button type="button" data-set-view="member" aria-pressed="false">I’m a member</button>
+    </div>
     <ol class="week week--card" aria-label="A member's week: classes on Tuesday and Thursday, training logged on Monday, Wednesday and Saturday">
       <li class="day day--trained"><span class="vh">Monday, trained</span></li>
       <li class="day day--class"><span class="vh">Tuesday, class</span></li>
@@ -44,9 +48,25 @@
       <li class="day day--rest"><span class="vh">Sunday, rest</span></li>
     </ol>
     <p class="wordmark" data-rise style="--i:0"><img src="brand/kinmova-wordmark.svg" alt="Kinmova" width="361" height="73"></p>
-    <h1 id="hero-title" class="hero-title" data-rise style="--i:1">See who’s slipping <br>before they quit</h1>
-    <p class="hero-line" data-rise style="--i:2">Kinmova is class booking plus training for the days in between, so you can see who’s keeping it up and nudge the rest.</p>
-    <form class="signup-form hero-form" method="post" action="https://formspree.io/f/mljbvwkw" data-endpoint="https://formspree.io/f/mljbvwkw" novalidate data-rise style="--i:3">
+    <h1 id="hero-title" class="hero-title" data-rise style="--i:1"><span data-for="studio">See who’s slipping <br>before they quit</span><span data-for="member">Your whole week <br>in one app</span></h1>
+    <p class="hero-line" data-rise style="--i:2" data-for="studio">Kinmova is class booking plus training for the days in between, so you can see who’s keeping it up and nudge the rest.</p>
+    <p class="hero-line" data-rise style="--i:2" data-for="member">The classes you book, the sets your coach gives you for the days in between and your bests, from every club you train at, on one screen.</p>
+    <form class="signup-form hero-form" data-for="member" data-kind="member" method="post" action="https://formspree.io/f/mnpdrgde" data-endpoint="https://formspree.io/f/mnpdrgde" novalidate data-rise style="--i:3">
+      <input type="hidden" name="_subject" value="New Kinmova member sign-up">
+      <input type="hidden" name="form" value="Top of page">
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
+      <label class="vh" for="m-name">Your name</label>
+      <input id="m-name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
+      <label class="vh" for="m-email">Email</label>
+      <input id="m-email" name="email" type="email" autocomplete="email" placeholder="Email" required>
+      <label class="vh" for="m-clubs">Clubs and studios you train at</label>
+      <input id="m-clubs" class="wide" name="clubs" type="text" placeholder="Clubs and studios you train at" required>
+      <label class="vh" for="m-owner">Who runs your club, if you know: name or email</label>
+      <input id="m-owner" class="wide" name="owner" type="text" placeholder="Who runs it, if you know">
+      <button class="btn hero-submit" type="submit">Put me on the list</button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+    <form class="signup-form hero-form" data-for="studio" method="post" action="https://formspree.io/f/mljbvwkw" data-endpoint="https://formspree.io/f/mljbvwkw" novalidate data-rise style="--i:3">
       <input type="hidden" name="_subject" value="New founding studio sign-up">
       <input type="hidden" name="form" value="Top of page">
       <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
@@ -67,17 +87,33 @@
       <button class="btn hero-submit" type="submit">Claim 3 months free</button>
       <p class="form-status" role="status" aria-live="polite"></p>
     </form>
-    <p class="hero-note" data-rise style="--i:4">We’re opening to a small group of studios first. Your three free months start the day you go live, and after that it’s £15 a month plus 2% + 20p on each card payment.</p>
+    <p class="hero-note" data-rise style="--i:4" data-for="studio">We’re opening to a small group of studios first. Your three free months start the day you go live, and after that it’s £15 a month plus 2% + 20p on each card payment.</p>
+    <p class="hero-note" data-rise style="--i:4" data-for="member">Kinmova isn’t open yet, and it arrives one club at a time, so it only covers the clubs that are on it. It’s free for members, and once you’re on the list we’ll give you a message to send your club.</p>
     <nav class="hero-links" aria-label="On this page" data-rise style="--i:5">
-      <a href="#how">How it works</a>
+      <a href="#how" data-for="studio">How it works</a>
       <a href="#included">What’s included</a>
-      <a href="#questions">Questions</a>
+      <a href="#questions" data-for="studio">Questions</a>
+      <a href="#member-questions" data-for="member">Questions</a>
     </nav>
   </div>
 
   <div class="hero-stage">
     <div class="giant-dot" aria-hidden="true"></div>
-    <div class="ui ui-panel ui-owner" data-ui role="img" aria-label="The owner's view in Kinmova: 11 of 14 members of the Pull class trained between classes this week. Tom hasn't been in for 9 days, with a button to send him a nudge.">
+    <div class="ui ui-panel ui-owner" data-ui data-for="member" role="img" aria-label="A member's week in Kinmova across two clubs: Pull on Tuesday and Thursday at Mill Lane Calisthenics, dead hangs set by Coach Dani for Wednesday and a yoga class on Saturday at Northside Yoga. Their Monday run club isn't on Kinmova yet, with a button to ask them.">
+      <div class="ui-head"><strong>Your week</strong><span class="ui-soft">24 to 30 November</span></div>
+      <p class="ui-big"><strong>2 clubs</strong><span>one week</span></p>
+      <table class="ui-table">
+        <thead><tr><th scope="col">When</th><th scope="col">What</th><th scope="col">Where</th></tr></thead>
+        <tbody>
+          <tr><td>Tue 18:30</td><td>Pull</td><td>Mill Lane</td></tr>
+          <tr><td>Wed</td><td>Dead hangs 3 × 20s</td><td>Coach Dani</td></tr>
+          <tr><td>Thu 18:30</td><td>Pull</td><td>Mill Lane</td></tr>
+          <tr><td>Sat 09:00</td><td>All levels flow</td><td>Northside Yoga</td></tr>
+        </tbody>
+      </table>
+      <div class="ui-nudge"><span>Your Monday run club isn’t on Kinmova yet</span><span class="ui-btn ui-btn--small">Ask them</span></div>
+    </div>
+    <div class="ui ui-panel ui-owner" data-ui data-for="studio" role="img" aria-label="The owner's view in Kinmova: 11 of 14 members of the Pull class trained between classes this week. Tom hasn't been in for 9 days, with a button to send him a nudge.">
       <div class="ui-head"><strong>Pull class, this week</strong><span class="ui-soft">Mill Lane Calisthenics</span></div>
       <p class="ui-big"><strong>11 of 14</strong><span>trained between classes</span></p>
       <table class="ui-table">
@@ -96,7 +132,8 @@
 
 <section class="does" aria-labelledby="does-title">
   <h2 id="does-title" class="vh">What Kinmova does</h2>
-  <p class="statement" data-reveal>Members book a class in two taps <span class="slot slot--btn" aria-hidden="true"><i>Book</i></span>, buy from a short list of offers <span class="slot slot--price" aria-hidden="true"><i>£44</i></span> and log the training you set them between classes <span class="slot slot--tick" aria-hidden="true"><span></span></span>. Their account works at every studio on Kinmova <span class="slot slot--photo" aria-hidden="true"><img src="assets/class-1937.jpg" alt="" width="1400" height="960" loading="lazy"></span>.</p>
+  <p class="statement" data-reveal data-for="member">Book a class in two taps <span class="slot slot--btn" aria-hidden="true"><i>Book</i></span>, pay for your class pack in the same app <span class="slot slot--price" aria-hidden="true"><i>£44</i></span> and log the sets your coach gives you for the days in between <span class="slot slot--tick" aria-hidden="true"><span></span></span>. One account works at every club on Kinmova <span class="slot slot--photo" aria-hidden="true"><img src="assets/class-1937.jpg" alt="" width="1400" height="960" loading="lazy"></span>.</p>
+  <p class="statement" data-reveal data-for="studio">Members book a class in two taps <span class="slot slot--btn" aria-hidden="true"><i>Book</i></span>, buy from a short list of offers <span class="slot slot--price" aria-hidden="true"><i>£44</i></span> and log the training you set them between classes <span class="slot slot--tick" aria-hidden="true"><span></span></span>. Their account works at every studio on Kinmova <span class="slot slot--photo" aria-hidden="true"><img src="assets/class-1937.jpg" alt="" width="1400" height="960" loading="lazy"></span>.</p>
   <div class="does-phone" data-reveal>
     <div class="ui ui-phone" data-ui role="img" aria-label="Sam's week in the Kinmova app on Wednesday 26 November: Thursday's Pull class booked at Mill Lane Calisthenics, today's two sets from Coach Dani with one done, and a yoga class on Saturday at Northside Yoga.">
       <div class="ui-top">
@@ -119,7 +156,13 @@
       <div class="ui-best"><span>Dead hang best</span><strong>45s</strong><span class="ui-soft">up from 20s in September</span></div>
     </div>
   </div>
-  <div class="does-foot" data-reveal>
+  <div class="does-foot" data-reveal data-for="member">
+    <h3 class="does-title">One app for every club</h3>
+    <p>Right now it’s probably one app for the gym, another for yoga, a WhatsApp group for the run club and your coach’s sets somewhere in your notes. On Kinmova they sit in one week on your home screen, and your bests are kept for good, whichever club you set them at.</p>
+    <p>It only works at clubs that are on Kinmova, so the more of their members who ask, the sooner yours will be.</p>
+    <a class="btn" href="#join">Put me on the list</a>
+  </div>
+  <div class="does-foot" data-reveal data-for="studio">
     <h3 class="does-title">One app for all their training</h3>
     <p>Sam’s classes with you, the yoga class they go to on Saturdays somewhere else, the sets your coach gave them for Wednesday and their best dead hang all live in one app. That makes it the one they keep on their home screen, so your timetable is a tap away every time they open it.</p>
     <p>It runs your bookings and membership sign-ups too, so your members have one app to learn and you have one bill to pay. Send us an export from your current system and we’ll move your members, memberships and class packs over for you.</p>
@@ -127,7 +170,7 @@
   </div>
 </section>
 
-<section class="switch-sec" id="who-trained" aria-labelledby="switch-title" data-state="trained">
+<section class="switch-sec" id="who-trained" data-for="studio" aria-labelledby="switch-title" data-state="trained">
   <div class="switch-words">
     <h2 id="switch-title" data-reveal>See who <span class="swap-word">trained</span></h2>
     <p data-reveal style="--i:1">When members log the sets you’ve given them, they show up on your list, so you can send a well done on Wednesday or a nudge before Thursday’s class.</p>
@@ -143,7 +186,7 @@
   </div>
 </section>
 
-<section class="how" id="how" aria-labelledby="how-title">
+<section class="how" id="how" data-for="studio" aria-labelledby="how-title">
   <div class="how-words">
     <h2 id="how-title" class="how-clause" aria-live="polite">First, put your timetable in</h2>
     <p class="how-note">Add your classes, coaches and prices once, and choose which three offers members see first when they buy.</p>
@@ -238,18 +281,22 @@
 
   <div class="inc-list">
     <h2 id="included-title" data-reveal>What’s included</h2>
-    <p class="inc-intro" data-reveal style="--i:1">Everything below comes with the founding offer, and your members never pay Kinmova anything.</p>
+    <p class="inc-intro" data-reveal style="--i:1" data-for="studio">Everything below comes with the founding offer, and your members never pay Kinmova anything.</p>
 
-    <h3 class="inc-group">For your members</h3>
+    <p class="inc-intro" data-reveal style="--i:1" data-for="member">Kinmova is free for members, at every club that’s on it.</p>
+
+    <h3 class="inc-group" data-for="studio">For your members</h3>
     <ul class="rows">
       <li><span>One account at every studio on Kinmova</span><span class="val">Free for members</span></li>
       <li><span>Book, cancel and join waitlists</span><span class="val">In the app</span></li>
-      <li><span>Their own week on the home screen</span><span class="val">Classes and training</span></li>
+      <li data-for="member"><span>Join and pay for memberships and class packs</span><span class="val">Card or direct debit</span></li>
+      <li data-for="studio"><span>Their own week on the home screen</span><span class="val">Classes and training</span></li>
+      <li data-for="member"><span>Your week on your home screen</span><span class="val">Classes and training</span></li>
       <li><span>Personal bests and attendance</span><span class="val">Kept for good</span></li>
     </ul>
 
-    <h3 class="inc-group">For you and your coaches</h3>
-    <ul class="rows">
+    <h3 class="inc-group" data-for="studio">For you and your coaches</h3>
+    <ul class="rows" data-for="studio">
       <li><span>Class timetable, cover and waitlists</span><span class="val">Any number of classes</span></li>
       <li><span>Online sign-ups for memberships and class packs</span><span class="val">Card or direct debit</span></li>
       <li><span>Class packs and memberships</span><span class="val">You choose the 3 shown first</span></li>
@@ -260,15 +307,15 @@
       <li><span>Who trained this week, and who didn’t</span><span class="val">Updated as they log</span></li>
     </ul>
 
-    <h3 class="inc-group">Moving over</h3>
-    <ul class="rows">
+    <h3 class="inc-group" data-for="studio">Moving over</h3>
+    <ul class="rows" data-for="studio">
       <li><span>Your members, memberships and class packs moved for you</span><span class="val">From your current system</span></li>
       <li><span>Your timetable set up with you on a call</span><span class="val">About an hour</span></li>
     </ul>
   </div>
 </section>
 
-<section class="offer" id="offer" aria-labelledby="offer-title">
+<section class="offer" id="offer" data-for="studio" aria-labelledby="offer-title">
   <div class="offer-words">
     <h2 id="offer-title" data-reveal>Founding studios</h2>
     <p data-reveal style="--i:1">We’re opening Kinmova to a small group of studios and clubs first. You get the whole app free for three months while we build it with you, and all we ask in return is half an hour of honest feedback each month.</p>
@@ -287,7 +334,7 @@
   </div>
 </section>
 
-<section class="faq" id="questions" aria-labelledby="faq-title">
+<section class="faq" id="questions" data-for="studio" aria-labelledby="faq-title">
   <h2 id="faq-title">Questions</h2>
   <div class="faq-list">
     <details name="faq" open>
@@ -321,7 +368,7 @@
   </div>
 </section>
 
-<section class="claim" id="claim" aria-labelledby="claim-title">
+<section class="claim" id="claim" data-for="studio" aria-labelledby="claim-title">
   <div class="coupon">
     <div class="coupon-words">
       <h2 id="claim-title">Claim your 3 months free</h2>
@@ -352,6 +399,70 @@
   </div>
 </section>
 
+<section class="faq" id="member-questions" data-for="member" aria-labelledby="mfaq-title">
+  <h2 id="mfaq-title">Questions</h2>
+  <div class="faq-list">
+    <details name="mfaq" open>
+      <summary>Is Kinmova ready to use?</summary>
+      <p>Not yet. We’re building it now and opening it to a small group of studios and clubs first. We’ll email you when one of yours is on it.</p>
+    </details>
+    <details name="mfaq">
+      <summary>Do I pay anything?</summary>
+      <p>No. Clubs pay for Kinmova, and members use it for free. You pay your club for classes and memberships as you do now.</p>
+    </details>
+    <details name="mfaq">
+      <summary>My club uses a different app. Can I still sign up?</summary>
+      <p>Yes, that’s most clubs. Tell us where you train and send them the message we give you after you sign up. Clubs listen to their regulars more than they listen to us.</p>
+    </details>
+    <details name="mfaq">
+      <summary>Can I use it at more than one club?</summary>
+      <p>Yes. One account works at every club on Kinmova, and your classes and training from all of them sit in the same week.</p>
+    </details>
+  </div>
+</section>
+
+<section class="claim" id="join" data-for="member" aria-labelledby="join-title">
+  <div class="coupon">
+    <div class="coupon-words">
+      <h2 id="join-title">Get Kinmova at your club</h2>
+      <p>Tell us where you train and we’ll email you when one of your clubs is on Kinmova. Then send them the message we give you, because clubs move faster when their members ask.</p>
+    </div>
+    <div class="perf" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <form class="signup-form coupon-form" data-kind="member" method="post" action="https://formspree.io/f/mnpdrgde" data-endpoint="https://formspree.io/f/mnpdrgde" novalidate>
+      <input type="hidden" name="_subject" value="New Kinmova member sign-up">
+      <input type="hidden" name="form" value="Bottom of page">
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
+      <label class="vh" for="j-name">Your name</label>
+      <input id="j-name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
+      <label class="vh" for="j-email">Email</label>
+      <input id="j-email" name="email" type="email" autocomplete="email" placeholder="Email" required>
+      <label class="vh" for="j-clubs">Clubs and studios you train at</label>
+      <input id="j-clubs" name="clubs" type="text" placeholder="Clubs and studios you train at" required>
+      <label class="vh" for="j-owner">Who runs your club, if you know: name or email</label>
+      <input id="j-owner" name="owner" type="text" placeholder="Who runs it, if you know">
+      <button class="coupon-submit" type="submit">Put me on the list</button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<template id="share-tpl">
+  <div class="share-step">
+    <p class="share-thanks"></p>
+    <h3 class="share-title" tabindex="-1">Now ask your club</h3>
+    <p class="share-why">Clubs move when their members ask, so here’s a message you can send. Change anything you like.</p>
+    <label class="vh" for="">Message to your club</label>
+    <textarea class="share-text" rows="6"></textarea>
+    <div class="share-btns">
+      <button type="button" class="share-btn share-native">Share</button>
+      <a class="share-btn share-wa" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="share-btn share-mail">Email</a>
+      <button type="button" class="share-btn share-copy">Copy</button>
+    </div>
+    <p class="share-status" role="status" aria-live="polite"></p>
+  </div>
+</template>
+
 </main>
 
 <footer class="foot">
@@ -361,16 +472,18 @@
   <p class="foot-name"><img src="brand/kinmova-wordmark-reversed.svg" alt="Kinmova" width="361" height="73" loading="lazy"></p>
   <div class="foot-cols">
     <nav aria-label="Footer">
-      <a href="#how">How it works</a>
+      <a href="#how" data-for="studio">How it works</a>
       <a href="#included">What’s included</a>
-      <a href="#offer">Founding studios</a>
-      <a href="#questions">Questions</a>
+      <a href="#offer" data-for="studio">Founding studios</a>
+      <a href="#questions" data-for="studio">Questions</a>
+      <a href="#member-questions" data-for="member">Questions</a>
     </nav>
     <p class="credits">Photographs: <a href="https://commons.wikimedia.org/wiki/File:SLNSW_10713_Womens_exercise_class_Grace_Bros_gymnasium.jpg">“Womens exercise class Grace Bros gymnasium”</a> by Sam Hood, State Library of New South Wales, <a href="https://creativecommons.org/publicdomain/mark/1.0/">public domain</a>, via Wikimedia Commons; <a href="https://www.flickr.com/photos/196542115@N02/52374019256">“Genesee Wesleyan Seminary”</a> by Livingston County Historian, NY, <a href="https://creativecommons.org/publicdomain/mark/1.0/">public domain</a>, via Flickr; <a href="https://commons.wikimedia.org/wiki/File:Summer_term_of_the_Western_State_Normal_School_(1912)_(14804287043).jpg">“Summer term of the Western State Normal School (1912)”</a> by Internet Archive Book Images, <a href="https://www.flickr.com/commons/usage/">no known copyright restrictions</a>, via Wikimedia Commons.</p>
   </div>
   <div class="foot-last">
     <p>© 2026 Kinmova</p>
-    <a class="btn btn--small" href="#claim">Claim 3 months free</a>
+    <a class="btn btn--small" href="#claim" data-for="studio">Claim 3 months free</a>
+    <a class="btn btn--small" href="#join" data-for="member">Put me on the list</a>
   </div>
 </footer>
 
