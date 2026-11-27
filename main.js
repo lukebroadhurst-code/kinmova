@@ -138,7 +138,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 })();
 
 // After a member signs up: a ready-made message to send their club, through the share sheet, WhatsApp, email or a copy.
-const SITE = 'https://lukebroadhurst-code.github.io/kinmova/';
+const SITE = 'https://kinmova.app/';
 let shareCount = 0;
 const showShare = (form) => {
   const first = form.elements.namedItem('name').value.trim().split(/\s+/)[0];
