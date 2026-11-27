@@ -27,6 +27,14 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<svg class="vh" aria-hidden="true" focusable="false">
+  <symbol id="i-cal" viewBox="0 0 64 64"><rect x="8" y="12" width="48" height="44" rx="8"/><path d="M8 26h48M20 6v12M44 6v12"/></symbol>
+  <symbol id="i-gym" viewBox="0 0 64 64"><path d="M6 24v16M14 18v28M50 18v28M58 24v16M14 32h36"/></symbol>
+  <symbol id="i-yoga" viewBox="0 0 64 64"><circle cx="32" cy="14" r="6"/><path d="M32 22v14M14 30l18 6 18-6M18 52l14-16 14 16"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 64 64"><path d="M10 14h44v30H28l-12 10V44h-6z"/></symbol>
+  <symbol id="i-note" viewBox="0 0 64 64"><path d="M14 6h28l10 10v42H14z"/><path d="M22 26h20M22 36h20M22 46h12"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 64 64"><rect x="12" y="28" width="40" height="30" rx="6"/><path d="M20 28v-8a12 12 0 0 1 24 0v8"/></symbol>
+</svg>
 
 <div class="page-week" aria-hidden="true"><i class="t"></i><i class="c"></i><i class="t"></i><i class="c"></i><i class="r"></i><i class="t"></i><i class="r"></i></div>
 
@@ -48,8 +56,9 @@
       <li class="day day--rest"><span class="vh">Sunday, rest</span></li>
     </ol>
     <p class="wordmark" data-rise style="--i:0"><img src="brand/kinmova-wordmark.svg" alt="Kinmova" width="361" height="73"></p>
-    <h1 id="hero-title" class="hero-title" data-rise style="--i:1"><span data-for="studio">See who’s slipping <br>before they quit</span><span data-for="member">Your whole week <br>in one app</span></h1>
-    <p class="hero-line" data-rise style="--i:2" data-for="studio">Kinmova is class booking plus training for the days in between, so you can see who’s keeping it up and nudge the rest.</p>
+    <h1 id="hero-title" class="hero-title" data-rise style="--i:1"><span data-for="studio">Your members have too many apps</span><span data-for="member">You have <br>too many apps</span></h1>
+    <p class="hero-apps" aria-hidden="true" data-rise style="--i:2"><b class="ap1"><svg viewBox="0 0 64 64"><use href="#i-cal"/></svg><i>3</i></b><b class="ap2"><svg viewBox="0 0 64 64"><use href="#i-gym"/></svg><i>1</i></b><b class="ap3"><svg viewBox="0 0 64 64"><use href="#i-yoga"/></svg><i>2</i></b><b class="ap4"><svg viewBox="0 0 64 64"><use href="#i-chat"/></svg><i>48</i></b><b class="ap5"><svg viewBox="0 0 64 64"><use href="#i-note"/></svg></b><b class="ap6"><svg viewBox="0 0 64 64"><use href="#i-lock"/></svg></b></p>
+    <p class="hero-line" data-rise style="--i:2" data-for="studio">Kinmova is class booking and the training in between, in one app. One account works at every studio on Kinmova, so you can see who’s keeping it up and who’s gone quiet.</p>
     <p class="hero-line" data-rise style="--i:2" data-for="member">The classes you book, the sets your coach gives you for the days in between and your bests, from every club you train at, on one screen.</p>
     <form class="signup-form hero-form" data-for="member" data-kind="member" method="post" action="https://formspree.io/f/mnpdrgde" data-endpoint="https://formspree.io/f/mnpdrgde" novalidate data-rise style="--i:3">
       <input type="hidden" name="_subject" value="New Kinmova member sign-up">
@@ -90,8 +99,9 @@
     <p class="hero-note" data-rise style="--i:4" data-for="studio">We’re opening to a small group of studios first. Your three free months start the day you go live, and after that it’s £15 a month plus 2% + 20p on each card payment.</p>
     <p class="hero-note" data-rise style="--i:4" data-for="member">Kinmova isn’t open yet, and it arrives one club at a time, so it only covers the clubs that are on it. It’s free for members, and once you’re on the list we’ll give you a message to send your club.</p>
     <nav class="hero-links" aria-label="On this page" data-rise style="--i:5">
-      <a href="#how" data-for="studio">How it works</a>
+      <a href="#one-app">One app</a>
       <a href="#included">What’s included</a>
+      <a href="#offer" data-for="studio">Founding studios</a>
       <a href="#questions" data-for="studio">Questions</a>
       <a href="#member-questions" data-for="member">Questions</a>
     </nav>
@@ -99,39 +109,69 @@
 
   <div class="hero-stage">
     <div class="giant-dot" aria-hidden="true"></div>
-    <div class="ui ui-panel ui-owner" data-ui data-for="member" role="img" aria-label="A member's week in Kinmova across two clubs: Pull on Tuesday and Thursday at Mill Lane Calisthenics, dead hangs set by Coach Dani for Wednesday and a yoga class on Saturday at Northside Yoga. Their Monday run club isn't on Kinmova yet, with a button to ask them.">
-      <div class="ui-head"><strong>Your week</strong><span class="ui-soft">24 to 30 November</span></div>
-      <p class="ui-big"><strong>2 clubs</strong><span>one week</span></p>
-      <table class="ui-table">
-        <thead><tr><th scope="col">When</th><th scope="col">What</th><th scope="col">Where</th></tr></thead>
-        <tbody>
-          <tr><td>Tue 18:30</td><td>Pull</td><td>Mill Lane</td></tr>
-          <tr><td>Wed</td><td>Dead hangs 3 × 20s</td><td>Coach Dani</td></tr>
-          <tr><td>Thu 18:30</td><td>Pull</td><td>Mill Lane</td></tr>
-          <tr><td>Sat 09:00</td><td>All levels flow</td><td>Northside Yoga</td></tr>
-        </tbody>
-      </table>
-      <div class="ui-nudge"><span>Your Monday run club isn’t on Kinmova yet</span><span class="ui-btn ui-btn--small">Ask them</span></div>
-    </div>
-    <div class="ui ui-panel ui-owner" data-ui data-for="studio" role="img" aria-label="The owner's view in Kinmova: 11 of 14 members of the Pull class trained between classes this week. Tom hasn't been in for 9 days, with a button to send him a nudge.">
-      <div class="ui-head"><strong>Pull class, this week</strong><span class="ui-soft">Mill Lane Calisthenics</span></div>
-      <p class="ui-big"><strong>11 of 14</strong><span>trained between classes</span></p>
-      <table class="ui-table">
-        <thead><tr><th scope="col">Member</th><th scope="col">Days trained</th><th scope="col">Best</th></tr></thead>
-        <tbody>
-          <tr><td>Sam</td><td class="num">3</td><td class="num">Dead hang 45s</td></tr>
-          <tr><td>Priya</td><td class="num">2</td><td class="num">Pull-ups 4</td></tr>
-          <tr><td>Marcus</td><td class="num">2</td><td class="num">Dead hang 38s</td></tr>
-          <tr class="slip"><td>Tom</td><td class="num">0</td><td class="num">Last in 9 days</td></tr>
-        </tbody>
-      </table>
-      <div class="ui-nudge"><span><strong>Tom</strong> hasn’t been in for 9 days</span><span class="ui-btn ui-btn--small">Send a nudge</span></div>
+    <!-- A member's phone today: generic apps only, no real app is named -->
+    <div class="hero-phone" data-ui role="img" aria-label="A member's phone with six separate apps for their training: class booking, the gym, yoga, a run club group chat, their coach's sets in a note, and passwords. Most have unread badges.">
+      <div class="hp-screen">
+        <span class="hp-app" style="--i:0"><b class="ap1"><svg viewBox="0 0 64 64"><use href="#i-cal"/></svg></b>Class booking<i>3</i></span>
+        <span class="hp-app" style="--i:1"><b class="ap2"><svg viewBox="0 0 64 64"><use href="#i-gym"/></svg></b>Gym app<i>1</i></span>
+        <span class="hp-app" style="--i:2"><b class="ap3"><svg viewBox="0 0 64 64"><use href="#i-yoga"/></svg></b>Yoga app<i>2</i></span>
+        <span class="hp-app" style="--i:3"><b class="ap4"><svg viewBox="0 0 64 64"><use href="#i-chat"/></svg></b>Run club chat<i>48</i></span>
+        <span class="hp-app" style="--i:4"><b class="ap5"><svg viewBox="0 0 64 64"><use href="#i-note"/></svg></b>Coach’s sets</span>
+        <span class="hp-app" style="--i:5"><b class="ap6"><svg viewBox="0 0 64 64"><use href="#i-lock"/></svg></b>Passwords</span>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="does" aria-labelledby="does-title">
-  <h2 id="does-title" class="vh">What Kinmova does</h2>
+<!-- The problem, told the way the reel tells it: a login each, the coach's sets lost, then they go quiet -->
+<section class="problem" id="apps" aria-labelledby="problem-title">
+  <h2 id="problem-title" class="problem-title" data-reveal><span data-for="studio">A login for every place they train</span><span data-for="member">A login for every place you train</span></h2>
+
+  <div class="pb">
+    <div class="pb-words" data-reveal style="--i:1">
+      <p data-for="studio">One app for your classes, another for the gym, another for yoga. Each has its own login and its own way of booking, so it’s easy to put off opening any of them.</p>
+      <p data-for="member">One app for the gym, another for yoga, a group chat for the run club. Each has its own login and its own way of booking, so it’s easy to put off opening any of them.</p>
+    </div>
+    <div class="pb-fig logins" data-play data-reveal style="--i:2" data-ui role="img" aria-label="Three login screens, for class booking, the gym app and the yoga app, each asking for the same email and a password. The last one shows a Forgot password link.">
+      <div class="lg"><strong>Log in to class booking</strong><span class="lg-f">sam@example.com</span><span class="lg-f"><span class="lg-pw">••••••••••</span></span></div>
+      <div class="lg"><strong>Log in to the gym app</strong><span class="lg-f">sam@example.com</span><span class="lg-f"><span class="lg-pw">••••••••••</span></span></div>
+      <div class="lg"><strong>Log in to the yoga app</strong><span class="lg-f">sam@example.com</span><span class="lg-f"><span class="lg-pw">••••••••••</span></span><span class="lg-forgot">Forgot password?</span></div>
+    </div>
+  </div>
+
+  <div class="pb pb--flip">
+    <div class="pb-words" data-reveal>
+      <h3 class="pb-title"><span data-for="studio">Their coach’s sets get lost in the group chat</span><span data-for="member">Your coach’s sets get lost in the group chat</span></h3>
+      <p data-for="studio">The sets a coach gives for the days in between end up in a group chat, a note or a screenshot, and that’s where they stay. The work between classes doesn’t happen.</p>
+      <p data-for="member">The sets your coach gives you for the days in between end up in a group chat, a note or a screenshot, and that’s where they stay. The work between classes doesn’t happen.</p>
+    </div>
+    <div class="pb-fig chat" data-play data-reveal style="--i:1" data-ui role="img" aria-label="A group chat. Coach Dani posts Wednesday's sets, then five other messages arrive and push the sets out of view.">
+      <p class="msg msg--coach"><span>Coach Dani</span>Wednesday: negative pull-ups 3 × 6, dead hang 3 × 20s</p>
+      <p class="msg" style="--k:0"><span>Jo</span>Anyone got a spare mat for Saturday?</p>
+      <p class="msg" style="--k:1"><span>Marcus</span>Running 5 late!</p>
+      <p class="msg" style="--k:2"><span>Priya</span>Who’s in for Sunday’s run?</p>
+      <p class="msg" style="--k:3"><span>Ellie</span>Is the car park open?</p>
+      <p class="msg" style="--k:4"><span>Jo</span>Great session today</p>
+    </div>
+  </div>
+
+  <div class="pb">
+    <div class="pb-words" data-reveal>
+      <h3 class="pb-title"><span data-for="studio">Then they go quiet</span><span data-for="member">Then you go quiet</span></h3>
+      <p data-for="studio">From your side, a member who’s gone quiet looks just like one who’s busy.</p>
+      <p data-for="member">And from the studio’s side, a member who’s gone quiet looks just like one who’s busy.</p>
+    </div>
+    <div class="pb-fig quiet" data-play data-reveal style="--i:1" role="img" aria-label="A member's week: in January they came on Monday, Wednesday and Friday. By March all seven days are empty.">
+      <ol class="qweek" aria-hidden="true"><li class="q3">M</li><li>T</li><li class="q2">W</li><li>T</li><li class="q1">F</li><li>S</li><li>S</li></ol>
+      <p class="qmonth" aria-hidden="true"><span>January</span><span>February</span><span>March</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- The turn: six app squares close up into the week of dots -->
+<section class="does" id="one-app" aria-labelledby="does-title">
+  <ol class="merge" data-play data-reveal role="img" aria-label="Six separate app icons close up into one week of seven dots: the Kinmova week."><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ol>
+  <h2 id="does-title" class="does-head" data-reveal style="--i:1"><span data-for="studio">One app for every studio on Kinmova</span><span data-for="member">One app for every club on Kinmova</span></h2>
   <p class="statement" data-reveal data-for="member">Book a class in two taps <span class="slot slot--btn" aria-hidden="true"><i>Book</i></span>, pay for your class pack in the same app <span class="slot slot--price" aria-hidden="true"><i>£44</i></span> and log the sets your coach gives you for the days in between <span class="slot slot--tick" aria-hidden="true"><span></span></span>. One account works at every club on Kinmova <span class="slot slot--photo" aria-hidden="true"><img src="assets/class-1937.jpg" alt="" width="1400" height="960" loading="lazy"></span>.</p>
   <p class="statement" data-reveal data-for="studio">Members book a class in two taps <span class="slot slot--btn" aria-hidden="true"><i>Book</i></span>, buy from a short list of offers <span class="slot slot--price" aria-hidden="true"><i>£44</i></span> and log the training you set them between classes <span class="slot slot--tick" aria-hidden="true"><span></span></span>. Their account works at every studio on Kinmova <span class="slot slot--photo" aria-hidden="true"><img src="assets/class-1937.jpg" alt="" width="1400" height="960" loading="lazy"></span>.</p>
   <div class="does-phone" data-reveal>
@@ -157,117 +197,52 @@
     </div>
   </div>
   <div class="does-foot" data-reveal data-for="member">
-    <h3 class="does-title">One app for every club</h3>
-    <p>Right now it’s probably one app for the gym, another for yoga, a WhatsApp group for the run club and your coach’s sets somewhere in your notes. On Kinmova they sit in one week on your home screen, and your bests are kept for good, whichever club you set them at.</p>
+    <h3 class="does-title">Your whole week on one screen</h3>
+    <p>The classes you book at every club on Kinmova sit in one week on your home screen, and your bests are kept for good, whichever club you set them at.</p>
+    <h3 class="does-title">Your coach’s sets, in the same app</h3>
+    <p>The sets your coach gives you for the days in between show up on the day they’re for, and you tick them off as you go.</p>
     <p>It only works at clubs that are on Kinmova, so the more of their members who ask, the sooner yours will be.</p>
     <a class="btn" href="#join">Put me on the list</a>
   </div>
   <div class="does-foot" data-reveal data-for="studio">
-    <h3 class="does-title">One app for all their training</h3>
-    <p>Sam’s classes with you, the yoga class they go to on Saturdays somewhere else, the sets your coach gave them for Wednesday and their best dead hang all live in one app. That makes it the one they keep on their home screen, so your timetable is a tap away every time they open it.</p>
+    <h3 class="does-title">Their whole week on one screen</h3>
+    <p>Sam’s classes with you, the yoga class they go to on Saturdays somewhere else and their best dead hang all live in one app. That makes it the one they keep on their home screen, so your timetable is a tap away every time they open it.</p>
+    <h3 class="does-title">Their coach’s sets, in the same app</h3>
+    <p>Give a class a few sets for the days in between and members see them on their home screen straight away. When they log them, they show up on your list.</p>
     <p>It runs your bookings and membership sign-ups too, so your members have one app to learn and you have one bill to pay. Send us an export from your current system and we’ll move your members, memberships and class packs over for you.</p>
     <a class="btn" href="#claim">Claim 3 months free</a>
   </div>
 </section>
 
-<section class="switch-sec" id="who-trained" data-for="studio" aria-labelledby="switch-title" data-state="trained">
+<section class="switch-sec" id="gone-quiet" data-for="studio" aria-labelledby="switch-title" data-state="quiet">
   <div class="switch-words">
-    <h2 id="switch-title" data-reveal>See who <span class="swap-word">trained</span></h2>
-    <p data-reveal style="--i:1">When members log the sets you’ve given them, they show up on your list, so you can send a well done on Wednesday or a nudge before Thursday’s class.</p>
-  </div>
-  <div class="big-switch" data-ui>
-    <button class="bs-control" type="button" role="switch" aria-checked="true" aria-label="Show members who trained this week">
-      <span class="bs-track"><span class="bs-knob"></span></span>
-      <span class="bs-text">
-        <span class="bs-label">Trained this week</span>
-        <span class="bs-value">23 of 32</span>
-      </span>
-    </button>
-  </div>
-</section>
-
-<section class="how" id="how" data-for="studio" aria-labelledby="how-title">
-  <div class="how-words">
-    <h2 id="how-title" class="how-clause" aria-live="polite">First, put your timetable in</h2>
-    <p class="how-note">Add your classes, coaches and prices once, and choose which three offers members see first when they buy.</p>
-  </div>
-
-  <div class="how-screen">
-    <div class="ui ui-panel how-frag is-current" data-ui data-stage="0" aria-label="The owner's timetable for the week, with two offers">
-      <div class="ui-head"><strong>This week’s timetable</strong><span class="ui-soft">Mill Lane Calisthenics</span></div>
+    <h2 id="switch-title" data-reveal>See who’s <span class="swap-word">gone quiet</span></h2>
+    <p data-reveal style="--i:1">When members log the sets you’ve given them, they show up on your list. On Wednesday you can see who’s gone quiet and send a nudge before Thursday’s class, or a well done to the ones who kept it up.</p>
+    <div class="ui ui-panel ui-owner quiet-list" data-ui data-reveal style="--i:2" role="img" aria-label="The owner's view in Kinmova: 11 of 14 members of the Pull class trained between classes this week. Tom hasn't been in for 9 days, with a button to send him a nudge.">
+      <div class="ui-head"><strong>Pull class, this week</strong><span class="ui-soft">Mill Lane Calisthenics</span></div>
+      <p class="ui-big"><strong>11 of 14</strong><span>trained between classes</span></p>
       <table class="ui-table">
-        <caption class="vh">Classes this week</caption>
-        <thead><tr><th scope="col">When</th><th scope="col">Class</th><th scope="col">Booked</th></tr></thead>
-        <tbody>
-          <tr><td>Mon 19:00</td><td>Push + Skill</td><td class="num">12 of 16</td></tr>
-          <tr><td>Tue 18:30</td><td>Pull</td><td class="num">14 of 14 <span class="ui-pill">3 waiting</span></td></tr>
-          <tr><td>Thu 18:30</td><td>Pull</td><td class="num">11 of 14</td></tr>
-          <tr><td>Sat 09:00</td><td>Open gym</td><td class="num">9 of 20</td></tr>
-        </tbody>
-      </table>
-      <div class="ui-offers">
-        <div><strong>4 classes</strong><span>£44 · 28 days</span></div>
-        <div><strong>Unlimited</strong><span>£100 · 28 days</span></div>
-      </div>
-    </div>
-
-    <div class="ui ui-panel how-frag" data-ui data-stage="1" aria-label="A new member joining Mill Lane Calisthenics online: choosing the unlimited membership, paying by direct debit and booking Thursday's Pull class in the same go">
-      <div class="ui-head"><strong>Join Mill Lane Calisthenics</strong><span class="ui-soft">Pick how you want to train</span></div>
-      <div class="ui-choice is-on"><span class="tick" aria-hidden="true"></span><span><strong>Unlimited</strong><br><span class="ui-soft">Every class, renews every 28 days</span></span><span class="ui-num">£100</span></div>
-      <div class="ui-choice"><span class="tick" aria-hidden="true"></span><span><strong>4 classes</strong><br><span class="ui-soft">Use them within 28 days</span></span><span class="ui-num">£44</span></div>
-      <div class="ui-choice"><span class="tick" aria-hidden="true"></span><span><strong>Try one class</strong><br><span class="ui-soft">No membership needed</span></span><span class="ui-num">£12</span></div>
-      <p class="ui-row"><span>Pay by</span><span>Direct debit</span></p>
-      <span class="ui-btn">Join and book Thu 18:30 Pull</span>
-    </div>
-
-    <div class="ui ui-panel how-frag" data-ui data-stage="2" aria-label="The coach setting two days of training for the Pull class">
-      <div class="ui-head"><strong>Between Tuesday and Thursday</strong><span class="ui-soft">For the Pull class, 14 members</span></div>
-      <div class="ui-set"><span class="tick" aria-hidden="true"></span><span>Negative pull-ups</span><span class="ui-num">3 × 6</span></div>
-      <div class="ui-set"><span class="tick" aria-hidden="true"></span><span>Dead hang</span><span class="ui-num">3 × 20s</span></div>
-      <div class="ui-set"><span class="tick" aria-hidden="true"></span><span>Scapula pulls</span><span class="ui-num">2 × 10</span></div>
-      <span class="ui-btn">Send to 14 members</span>
-    </div>
-
-    <div class="ui ui-panel how-frag" data-ui data-stage="3" aria-label="The coach's view of who trained between classes and their progress">
-      <div class="ui-head"><strong>Pull class, this week</strong><span class="ui-soft">11 of 14 trained between classes</span></div>
-      <table class="ui-table">
-        <caption class="vh">Members' training this week</caption>
         <thead><tr><th scope="col">Member</th><th scope="col">Days trained</th><th scope="col">Best</th></tr></thead>
         <tbody>
           <tr><td>Sam</td><td class="num">3</td><td class="num">Dead hang 45s</td></tr>
           <tr><td>Priya</td><td class="num">2</td><td class="num">Pull-ups 4</td></tr>
           <tr><td>Marcus</td><td class="num">2</td><td class="num">Dead hang 38s</td></tr>
-          <tr><td>Tom</td><td class="num">0</td><td class="num ui-soft">Last in 9 days</td></tr>
+          <tr class="slip"><td>Tom</td><td class="num">0</td><td class="num">Last in 9 days</td></tr>
         </tbody>
       </table>
+      <div class="ui-nudge"><span><strong>Tom</strong> hasn’t been in for 9 days</span><span class="ui-btn ui-btn--small">Send a nudge</span></div>
     </div>
   </div>
-
-  <div class="how-range">
-    <label class="vh" for="stage">Show a stage of the week</label>
-    <div class="range-wrap">
-      <span class="range-track" aria-hidden="true"><span class="range-fill"></span></span>
-      <span class="range-stops" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>
-      <input id="stage" type="range" min="0" max="3" step="1" value="0" aria-valuetext="Timetable">
-    </div>
-    <div class="how-names" role="group" aria-label="Stages of the week">
-      <button type="button" class="is-current" aria-pressed="true" data-step="0">Timetable</button>
-      <button type="button" aria-pressed="false" data-step="1">Joining</button>
-      <button type="button" aria-pressed="false" data-step="2">Training</button>
-      <button type="button" aria-pressed="false" data-step="3">Progress</button>
-    </div>
+  <div class="big-switch" data-ui>
+    <button class="bs-control" type="button" role="switch" aria-checked="true" aria-label="Show members who’ve gone quiet this week">
+      <span class="bs-track"><span class="bs-knob"></span></span>
+      <span class="bs-text">
+        <span class="bs-label">Gone quiet this week</span>
+        <span class="bs-value">9 of 32</span>
+      </span>
+    </button>
   </div>
 </section>
-
-<div class="week-band" role="img" aria-label="A member's week on Kinmova: classes on Tuesday and Thursday, training logged on Monday, Wednesday and Saturday, rest on Friday and Sunday.">
-  <span class="wb wb--trained" data-reveal style="--i:0"><b>Mon</b>Trained</span>
-  <span class="wb wb--class" data-reveal style="--i:1"><b>Tue</b>Class</span>
-  <span class="wb wb--trained" data-reveal style="--i:2"><b>Wed</b>Trained</span>
-  <span class="wb wb--class" data-reveal style="--i:3"><b>Thu</b>Class</span>
-  <span class="wb wb--rest" data-reveal style="--i:4"><b>Fri</b>Rest</span>
-  <span class="wb wb--trained" data-reveal style="--i:5"><b>Sat</b>Trained</span>
-  <span class="wb wb--rest" data-reveal style="--i:6"><b>Sun</b>Rest</span>
-</div>
 
 <section class="included" id="included" aria-labelledby="included-title">
   <figure class="inc-photo" data-reveal>
@@ -304,7 +279,7 @@
       <li><span>Guest checkout for one-off events</span><span class="val">No account needed</span></li>
       <li><span>Discount codes</span><span class="val">Per offer</span></li>
       <li><span>Training to set between classes</span><span class="val">Set once, reuse</span></li>
-      <li><span>Who trained this week, and who didn’t</span><span class="val">Updated as they log</span></li>
+      <li><span>Who’s kept it up this week, and who’s gone quiet</span><span class="val">Updated as they log</span></li>
     </ul>
 
     <h3 class="inc-group" data-for="studio">Moving over</h3>
@@ -487,7 +462,7 @@
   <p class="foot-name"><img src="brand/kinmova-wordmark-reversed.svg" alt="Kinmova" width="361" height="73" loading="lazy"></p>
   <div class="foot-cols">
     <nav aria-label="Footer">
-      <a href="#how" data-for="studio">How it works</a>
+      <a href="#one-app">One app</a>
       <a href="#included">What’s included</a>
       <a href="#offer" data-for="studio">Founding studios</a>
       <a href="#questions" data-for="studio">Questions</a>

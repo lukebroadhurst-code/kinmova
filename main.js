@@ -19,7 +19,18 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   }, 2500));
 })();
 
-// See who trained / skipped: the blown-up switch.
+// The little stories in the figures (the logins, the chat, the quiet week, the merge) play once most of the figure is on screen.
+(() => {
+  const figs = document.querySelectorAll('[data-play]');
+  const play = (el) => el.classList.add('is-playing');
+  if (reduceMotion || !('IntersectionObserver' in window)) { figs.forEach(play); return; }
+  const io = new IntersectionObserver((entries) => {
+    for (const entry of entries) { if (entry.isIntersecting) { play(entry.target); io.unobserve(entry.target); } }
+  }, { threshold: 0.55 });
+  figs.forEach((f) => io.observe(f));
+})();
+
+// See who's gone quiet / kept it up: the blown-up switch.
 (() => {
   const section = document.querySelector('.switch-sec');
   const control = section?.querySelector('.bs-control');
@@ -30,15 +41,15 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   const flip = () => {
     const on = control.getAttribute('aria-checked') !== 'true';
     control.setAttribute('aria-checked', String(on));
-    section.dataset.state = on ? 'trained' : 'skipped';
-    word.textContent = on ? 'trained' : 'skipped';
-    label.textContent = on ? 'Trained this week' : 'Skipped this week';
-    value.textContent = on ? '23 of 32' : '9 of 32';
-    control.setAttribute('aria-label', on ? 'Show members who trained this week' : 'Show members who skipped this week');
+    section.dataset.state = on ? 'quiet' : 'kept';
+    word.textContent = on ? 'gone quiet' : 'kept it up';
+    label.textContent = on ? 'Gone quiet this week' : 'Kept it up this week';
+    value.textContent = on ? '9 of 32' : '23 of 32';
+    control.setAttribute('aria-label', on ? 'Show members who’ve gone quiet this week' : 'Show members who kept it up this week');
   };
   let touched = false;
   control.addEventListener('click', (e) => { if (e.isTrusted) touched = true; flip(); });
-  // Flip once to 'skipped' and back the first time it's in view, so people see it's live.
+  // Flip once to 'kept it up' and back the first time it's in view, so people see it's live.
   if (!reduceMotion && 'IntersectionObserver' in window) {
     const io = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return;
@@ -47,57 +58,6 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     }, { threshold: 0.55 });
     io.observe(section);
   }
-})();
-
-// How it works: one slider drives the clause, the note and the app screen.
-(() => {
-  const input = document.getElementById('stage');
-  if (!input) return;
-  const stages = [
-    { name: 'Timetable', clause: 'First, put your timetable in', note: 'Add your classes, coaches and prices once, and choose which three offers members see first when they buy.' },
-    { name: 'Joining', clause: 'Then members join and book', note: 'New members pick a membership or class pack, pay by card or direct debit, and book their first class in one go. After that they book, cancel and join waitlists on their own.' },
-    { name: 'Training', clause: 'Next, set training for the gaps', note: 'Give each class a few sets for the days in between, and members see them on their home screen straight away.' },
-    { name: 'Progress', clause: 'Last, see who kept it up', note: 'Every set a member logs shows on your list with their best so far, so you know who to cheer on and who to chase.' },
-  ];
-  const clause = document.querySelector('.how-clause');
-  const note = document.querySelector('.how-note');
-  const frags = document.querySelectorAll('.how-frag');
-  const steps = document.querySelectorAll('.how-names button');
-  const stops = document.querySelectorAll('.range-stops i');
-  const fill = document.querySelector('.range-fill');
-  const last = stages.length - 1;
-  let current = -1;
-  const show = (i) => {
-    fill.style.width = `calc(var(--thumb) / 2 + (100% - var(--thumb)) * ${i / last})`;
-    stops.forEach((s, k) => s.classList.toggle('on', k <= i));
-    steps.forEach((b, k) => { b.classList.toggle('is-current', k === i); b.setAttribute('aria-pressed', String(k === i)); });
-    if (i === current) return;
-    const first = current === -1;
-    current = i;
-    input.value = String(i);
-    input.setAttribute('aria-valuetext', stages[i].name);
-    frags.forEach((f) => f.classList.toggle('is-current', Number(f.dataset.stage) === i));
-    const swap = () => { clause.textContent = stages[i].clause; note.textContent = stages[i].note; clause.style.opacity = 1; note.style.opacity = 1; };
-    if (reduceMotion || first) { swap(); return; }
-    clause.style.opacity = 0; note.style.opacity = 0;
-    setTimeout(swap, 180);
-  };
-
-  // Steps through on its own while the section is on screen, until someone touches it.
-  let touched = false;
-  let timer = null;
-  const stop = () => { clearInterval(timer); timer = null; };
-  const start = () => { if (!touched && !timer && !reduceMotion) timer = setInterval(() => show((current + 1) % stages.length), 3500); };
-  const takeOver = () => { touched = true; stop(); };
-  input.addEventListener('input', () => { takeOver(); show(Number(input.value)); });
-  input.addEventListener('pointerdown', takeOver);
-  input.addEventListener('keydown', takeOver);
-  steps.forEach((b) => b.addEventListener('click', () => { takeOver(); show(Number(b.dataset.step)); }));
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(([entry]) => (entry.isIntersecting ? start() : stop()), { threshold: 0.5 }).observe(document.getElementById('how'));
-  }
-  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : null));
-  show(0);
 })();
 
 // What's included: the old class photographs crossfade slowly inside the circle.
@@ -212,14 +172,12 @@ document.querySelectorAll('.signup-form').forEach((form) => {
 
 // Scroll movement, all built from the week of dots. Transform and opacity only; nothing moves under reduced motion.
 (() => {
-  const wbs = [...document.querySelectorAll('.wb')];
-  if (reduceMotion) { wbs.forEach((w) => w.classList.add('lit')); return; }
+  if (reduceMotion) return;
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
   const ease = (t) => 1 - Math.pow(1 - t, 3);
   const through = (el) => { const r = el.getBoundingClientRect(); return clamp((innerHeight - r.top) / (innerHeight + r.height), 0, 1); };
   const dot = document.querySelector('.giant-dot');
-  const owners = document.querySelectorAll('.hero-stage .ui');
-  const band = document.querySelector('.week-band');
+  const owners = document.querySelectorAll('.hero-phone');
   const photo = document.querySelector('.inc-circle');
   const tracker = document.querySelector('.page-week');
   const trackerDots = tracker ? [...tracker.children] : [];
@@ -231,7 +189,6 @@ document.querySelectorAll('.signup-form').forEach((form) => {
     const h = clamp(y / vh, 0, 1);
     if (dot) { dot.style.translate = `${-h * 10}% ${-h * 14}%`; dot.style.scale = String(1 + h * 0.3); }
     owners.forEach((o) => { o.style.translate = `0 ${(-h * 60).toFixed(1)}px`; });
-    if (band) { const p = through(band); wbs.forEach((w, i) => w.classList.toggle('lit', p > 0.2 + i * 0.065)); }
     if (photo) { const p = ease(clamp(through(photo) * 2.2, 0, 1)); photo.style.scale = (0.55 + 0.45 * p).toFixed(3); photo.style.rotate = `${((1 - p) * -12).toFixed(2)}deg`; }
     if (tracker) {
       const pg = clamp(y / Math.max(1, document.documentElement.scrollHeight - vh), 0, 1);

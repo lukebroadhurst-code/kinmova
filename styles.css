@@ -103,7 +103,7 @@ html[data-view="member"] [data-for="studio"] { display: none !important; }
 .day--class { background: var(--ink); }
 .wordmark { margin-top: auto; padding-top: 48px; line-height: 0; }
 .wordmark img { height: clamp(26px, 2.3vw, 36px); width: auto; }
-.hero-title { margin-top: 28px; font-size: var(--s-head); max-width: none; }
+.hero-title { margin-top: 28px; font-size: clamp(2.5rem, 0.9rem + 3.3vw, 4.25rem); max-width: none; }
 .hero-line { margin-top: 32px; max-width: 38ch; font-size: var(--s-body); }
 .hero-card .btn { margin-top: 32px; }
 .hero-note { margin-top: 18px; max-width: 42ch; font-size: var(--s-small); }
@@ -169,6 +169,16 @@ html[data-view="member"] [data-for="studio"] { display: none !important; }
   background: var(--accent);
   right: -48%; bottom: -62%;
 }
+
+/* A member's phone today: six separate apps. The rounded squares are the page's one break from the dot, on purpose. */
+.hero-phone { position: relative; z-index: 1; width: min(340px, 74%); padding: 14px; border-radius: 52px; background: var(--paper); }
+.hp-screen { border-radius: 40px; background: var(--sky); padding: 44px 18px 72px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px 10px; }
+.hp-app { position: relative; display: grid; justify-items: center; gap: 8px; font-size: var(--s-small); font-weight: 500; line-height: 1.2; text-align: center; }
+.hp-app b { width: 76px; aspect-ratio: 1; border-radius: 22px; display: grid; place-items: center; }
+.hp-app svg, .hero-apps svg { width: 50%; height: 50%; fill: none; stroke: #fff; stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round; }
+.hp-app i { position: absolute; top: -9px; left: calc(50% + 26px); min-width: 28px; height: 28px; padding: 0 7px; border-radius: 14px; background: var(--accent); color: #fff; font: 600 14px/28px "Albert Sans", system-ui, sans-serif; font-style: normal; text-align: center; }
+.ap1 { background: #6b8796; } .ap2 { background: #8c7b6b; } .ap3 { background: #7a8f72; } .ap4 { background: #9a6f7e; } .ap5 { background: #6f7a9a; } .ap6 { background: #a08a5a; }
+.hero-apps { display: none; }
 
 /* ---------- Interface fragments (data-ui keeps its own borders and sizes) ---------- */
 .ui { font-family: "Albert Sans", system-ui, sans-serif; color: var(--ink); text-align: left; line-height: 1.35; }
@@ -237,7 +247,7 @@ html[data-view="member"] [data-for="studio"] { display: none !important; }
 .ui-small { margin-top: -4px; }
 
 /* ---------- What it does: one statement with picture words ---------- */
-.does { padding: var(--section) var(--m); display: grid; grid-template-columns: repeat(12, 1fr); column-gap: var(--gap); }
+.does { padding: clamp(72px, 6vw, 96px) var(--m) var(--section); display: grid; grid-template-columns: repeat(12, 1fr); column-gap: var(--gap); }
 .statement {
   grid-column: 1 / 12;
   font-size: clamp(1.5rem, 0.9rem + 1.9vw, 2.25rem);
@@ -263,7 +273,57 @@ html[data-view="member"] [data-for="studio"] { display: none !important; }
 .does-foot p { max-width: 44ch; }
 .does-title { font-size: var(--s-lead); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 -8px; }
 
-/* ---------- See who trained: one control, blown up ---------- */
+/* ---------- The problem: a login each, the sets lost, then they go quiet ---------- */
+.problem {
+  display: grid; grid-template-columns: repeat(12, 1fr); column-gap: var(--gap); row-gap: clamp(64px, 6.5vw, 112px);
+  padding: var(--section) var(--m) clamp(88px, 8vw, 112px);
+  background: var(--night); color: var(--night-ink);
+}
+.problem-title { grid-column: 1 / 12; font-size: var(--s-head); }
+.problem .pb { grid-column: 1 / 13; display: grid; grid-template-columns: repeat(12, 1fr); column-gap: var(--gap); align-items: center; }
+.problem .pb-words { grid-column: 1 / 6; display: grid; gap: 20px; align-content: center; }
+.problem .pb-words p { max-width: 34ch; font-size: clamp(1.1875rem, 0.95rem + 0.7vw, 1.625rem); line-height: 1.35; letter-spacing: -0.01em; }
+.problem .pb-title { font-size: var(--s-lead); font-weight: 600; letter-spacing: -0.02em; line-height: 1.08; max-width: 18ch; text-wrap: balance; }
+.problem .pb-fig { grid-column: 7 / 13; }
+.problem .pb--flip .pb-words { grid-column: 8 / 13; }
+.problem .pb--flip .pb-fig { grid-column: 1 / 7; grid-row: 1; }
+
+/* A login each: three cards, one tone step apart */
+.problem .logins { position: relative; height: clamp(400px, 32vw, 470px); }
+.problem .lg { position: absolute; width: min(430px, 84%); padding: 26px 28px 28px; border-radius: var(--r); display: grid; gap: 12px; color: var(--ink); }
+.problem .lg:nth-child(1) { left: 0; top: 0; background: #c9d1d5; }
+.problem .lg:nth-child(2) { left: 8%; top: 70px; background: #e4e9ec; }
+.problem .lg:nth-child(3) { left: 16%; top: 140px; background: var(--paper); }
+.problem .lg strong { font-size: var(--s-body); font-weight: 600; }
+.problem .lg-f { min-height: 48px; padding: 0 16px; border-radius: 12px; background: rgba(10, 10, 10, 0.07); display: flex; align-items: center; font-size: var(--s-small); color: #34505d; }
+.problem .lg-pw { color: var(--ink); letter-spacing: 0.14em; }
+.problem .lg-forgot { font-size: var(--s-small); font-weight: 600; color: var(--accent); }
+
+/* The coach's sets, pushed out of view by the chat */
+.problem .chat { height: clamp(340px, 26vw, 380px); overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; border-radius: var(--r); background: #171717; }
+.problem .msg { flex: none; max-width: 82%; padding: 12px 16px; border-radius: 18px; background: #2a2a2a; font-size: var(--s-small); line-height: 1.35; overflow: hidden; }
+.problem .msg + .msg { margin-top: 10px; }
+.problem .msg span { display: block; margin-bottom: 2px; font-weight: 600; color: #9aa5ab; }
+.problem .msg--coach { background: #4a1d3e; }
+.problem .msg--coach span { color: #f0a5dc; }
+
+/* Then they go quiet: the week of dots empties */
+.problem .quiet { display: grid; gap: 22px; }
+.problem .qweek { display: flex; gap: clamp(8px, 1vw, 14px); }
+.problem .qweek li { width: clamp(40px, 5.6vw, 80px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; background: #262626; color: #7f8b91; font-size: var(--s-small); font-weight: 600; }
+.problem .qmonth { display: grid; font-size: var(--s-lead); font-weight: 600; letter-spacing: -0.02em; color: #9aa5ab; }
+.problem .qmonth span { grid-area: 1 / 1; opacity: 0; }
+.problem .qmonth span:last-child { opacity: 1; }
+
+/* The turn: six app squares close up into the week of dots */
+.does .merge { grid-column: 1 / 13; display: flex; gap: clamp(8px, 1.2vw, 18px); }
+.does .merge li { width: clamp(40px, 7vw, 112px); aspect-ratio: 1; border-radius: 50%; background: var(--accent); }
+.does .merge li:nth-child(2), .does .merge li:nth-child(4) { background: var(--ink); }
+.does .merge li:nth-child(5), .does .merge li:nth-child(7) { background: var(--sand); }
+.does-head { grid-column: 1 / 12; margin-top: 48px; font-size: var(--s-head); }
+.does .statement { margin-top: 48px; }
+
+/* ---------- See who's gone quiet: one control, blown up ---------- */
 .switch-sec {
   position: relative; overflow: hidden;
   min-height: 92svh;
@@ -271,10 +331,11 @@ html[data-view="member"] [data-for="studio"] { display: none !important; }
   transition: background-color 420ms var(--ease-out);
   padding: var(--section) var(--m) var(--m);
 }
-.switch-sec[data-state="skipped"] { background: var(--sand); }
+.switch-sec[data-state="kept"] { background: var(--sand); }
 .switch-words { position: relative; z-index: 1; max-width: 30rem; }
 .switch-words h2 { font-size: var(--s-head); }
 .switch-words p { margin-top: 28px; max-width: 34ch; }
+.quiet-list { margin-top: 40px; }
 .big-switch {
   position: absolute; right: -7vw; bottom: 4vh;
   font-size: clamp(64px, 15vh, 150px);
@@ -304,86 +365,6 @@ html[data-view="member"] [data-for="studio"] { display: none !important; }
 .bs-control:hover .bs-knob { transform: scale(1.03); }
 .bs-control:active .bs-knob { transform: scale(0.96); }
 
-/* ---------- How it works: drag through the stages ---------- */
-.how {
-  position: relative;
-  display: grid; grid-template-columns: 1fr 1fr;
-  min-height: 88svh;
-}
-.how-words { background: var(--sand); padding: var(--section) var(--m) 180px; }
-.how-clause { font-size: var(--s-head); max-width: 12ch; transition: opacity 200ms ease; }
-.how-note { margin-top: 32px; max-width: 36ch; transition: opacity 200ms ease; }
-.how-screen { background: var(--night); display: grid; place-items: center; padding: 72px var(--m) 180px; }
-.how-frag { grid-area: 1 / 1; opacity: 0; visibility: hidden; transition: opacity 200ms ease, visibility 0s linear 200ms; }
-.how-frag.is-current { opacity: 1; visibility: visible; transition: opacity 200ms ease; }
-.how-range {
-  position: absolute; left: var(--m); right: var(--m); bottom: 28px;
-  display: grid; gap: 14px;
-}
-.range-wrap { position: relative; height: 44px; display: flex; align-items: center; --thumb: 44px; }
-.range-track { position: absolute; left: 0; right: 0; height: 8px; border-radius: 999px; background: rgba(10, 10, 10, 0.18); overflow: hidden; }
-.how-range .range-track { background: #d6c99c; }
-.range-fill { position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--thumb) / 2); background: var(--accent); transition: width 260ms var(--ease-out); }
-.range-stops { position: absolute; left: 0; right: 0; top: 50%; height: 0; }
-.range-stops i { position: absolute; top: -8px; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: #d6c99c; transition: background-color 260ms var(--ease-out); }
-.range-stops i:nth-child(1) { left: calc(var(--thumb) / 2); }
-.range-stops i:nth-child(2) { left: calc(var(--thumb) / 2 + (100% - var(--thumb)) / 3); }
-.range-stops i:nth-child(3) { left: calc(var(--thumb) / 2 + (100% - var(--thumb)) * 2 / 3); }
-.range-stops i:nth-child(4) { left: calc(100% - var(--thumb) / 2); }
-.range-stops i.on { background: var(--accent); }
-.range-wrap input {
-  position: relative; width: 100%; margin: 0; height: 44px;
-  appearance: none; -webkit-appearance: none; background: none; cursor: grab;
-}
-.range-wrap input:active { cursor: grabbing; }
-.range-wrap input::-webkit-slider-runnable-track { height: 8px; background: none; }
-.range-wrap input::-moz-range-track { height: 8px; background: none; }
-.range-wrap input::-webkit-slider-thumb {
-  -webkit-appearance: none; appearance: none;
-  width: 44px; height: 44px; margin-top: -18px; border-radius: 50%;
-  background: var(--accent); border: 6px solid var(--sand);
-  transition: transform 160ms var(--ease-out);
-}
-.range-wrap input::-moz-range-thumb { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); border: 6px solid var(--sand); }
-.range-wrap input:hover::-webkit-slider-thumb { transform: scale(1.06); }
-.range-wrap input:active::-webkit-slider-thumb { transform: scale(1.12); }
-.range-wrap input:focus-visible { outline: none; }
-.range-wrap input:focus-visible::-webkit-slider-thumb { outline: 3px solid var(--ink); outline-offset: 3px; }
-.how-names { position: relative; height: 44px; --thumb: 44px; }
-.how-names button {
-  position: absolute; top: 0; transform: translateX(-50%);
-  min-height: 44px; padding: 0 18px; border: 0; border-radius: 999px; cursor: pointer;
-  background: none; color: var(--muted);
-  font: 500 var(--s-body) "Albert Sans", system-ui, sans-serif;
-  transition: background-color 200ms var(--ease-out), color 200ms var(--ease-out);
-}
-.how-names button:nth-child(1) { left: 0; transform: none; }
-.how-names button:nth-child(2) { left: calc(var(--thumb) / 2 + (100% - var(--thumb)) / 3); }
-.how-names button:nth-child(3) { left: calc(var(--thumb) / 2 + (100% - var(--thumb)) * 2 / 3); color: #b9c4c9; }
-.how-names button:nth-child(4) { left: auto; right: 0; transform: none; color: #b9c4c9; }
-.how-names button:hover { text-decoration: underline; text-underline-offset: 0.2em; }
-.how-names button.is-current { background: var(--accent); color: #fff; text-decoration: none; }
-.how-names button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-.how-range { pointer-events: none; }
-.how-range .range-wrap, .how-range input, .how-names button { pointer-events: auto; }
-
-/* ---------- The week band ---------- */
-.week-band {
-  display: grid; grid-template-columns: repeat(7, 1fr); gap: var(--gap);
-  padding: var(--section) var(--m) 0;
-}
-.wb {
-  aspect-ratio: 1; border-radius: 50%;
-  display: grid; place-content: center; text-align: center;
-  font-size: var(--s-small); line-height: 1.3;
-  background: var(--surface);
-}
-.wb b { display: block; font-size: var(--s-lead); font-weight: 600; letter-spacing: -0.02em; }
-.wb--trained { background: var(--accent); color: var(--accent-ink); }
-.wb--class { background: var(--ink); color: var(--night-ink); }
-.wb--rest { background: var(--sand); }
-/* Member view: the studio sections between these are gone, so close up the gaps they leave */
-html[data-view="member"] .week-band { padding-top: 0; }
 #member-questions { padding-bottom: 0; }
 
 /* ---------- What's included ---------- */
@@ -574,19 +555,51 @@ html[data-view="member"] .week-band { padding-top: 0; }
   .js .day:nth-child(5) { animation-delay: 620ms; } .js .day:nth-child(6) { animation-delay: 700ms; }
   .js .day:nth-child(7) { animation-delay: 780ms; }
   .js .giant-dot { animation: drift 14s var(--ease-in-out) infinite alternate; }
-  .js .hero-stage .ui { opacity: 0; transform: translateY(32px); animation: rise 900ms var(--ease-out) 260ms forwards; }
-  .js .wb { transition: background-color 360ms var(--ease-out), color 360ms var(--ease-out); }
-  .js .wb:not(.lit) { background: var(--surface); color: var(--muted); }
-  .js .wb.lit { animation: lit 520ms var(--ease-out); }
-  .js .inc-circle { will-change: scale, rotate; }
+  .js .hero-phone { opacity: 0; transform: translateY(32px); animation: rise 900ms var(--ease-out) 260ms forwards; }
+    .js .inc-circle { will-change: scale, rotate; }
+  .js .hp-app { opacity: 0; transform: scale(0.6); animation: pop 520ms var(--ease-out) forwards; animation-delay: calc(700ms + var(--i) * 140ms); }
+  .js .hp-app i { opacity: 0; transform: scale(0.4); animation: pop 360ms var(--ease-out) forwards; animation-delay: calc(900ms + var(--i) * 140ms); }
+  /* Problem figures: each plays once as it reaches the screen; without script they show their last frame */
+  .js .problem .lg { transition: opacity 150ms linear, transform 500ms var(--ease-out); }
+  .js .problem .lg:nth-child(2) { transition-delay: 250ms; } .js .problem .lg:nth-child(3) { transition-delay: 500ms; }
+  .js .problem .logins:not(.is-playing) .lg:not(:first-child) { opacity: 0; transform: translateY(-28px); }
+  .js .problem .lg-pw { display: inline-block; clip-path: inset(0 0 0 0); transition: clip-path 400ms steps(10); }
+  .js .problem .lg:nth-child(1) .lg-pw { transition-delay: 200ms; } .js .problem .lg:nth-child(2) .lg-pw { transition-delay: 500ms; } .js .problem .lg:nth-child(3) .lg-pw { transition-delay: 800ms; }
+  .js .problem .logins:not(.is-playing) .lg-pw { clip-path: inset(0 100% 0 0); }
+  .js .problem .lg-forgot { transition: opacity 300ms var(--ease-out) 1300ms, transform 400ms var(--ease-out) 1300ms; }
+  .js .problem .logins:not(.is-playing) .lg-forgot { opacity: 0; transform: translateY(8px); }
+  .js .problem .msg { transition: max-height 450ms var(--ease-out), margin-top 450ms var(--ease-out), padding 450ms var(--ease-out), opacity 300ms ease; transition-delay: calc(900ms + var(--k, 0) * 380ms); max-height: 160px; }
+  .js .problem .chat:not(.is-playing) .msg:not(.msg--coach) { max-height: 0; margin-top: 0; padding-top: 0; padding-bottom: 0; opacity: 0; }
+  .js .problem .qweek li { transition: background-color 400ms var(--ease-out), color 400ms var(--ease-out), scale 400ms var(--ease-out); }
+  .js .problem .quiet:not(.is-playing) .qweek li:is(.q1, .q2, .q3) { background: var(--accent); color: #fff; }
+  .js .problem .qweek .q1 { transition-delay: 1300ms; } .js .problem .qweek .q2 { transition-delay: 2000ms; } .js .problem .qweek .q3 { transition-delay: 2700ms; }
+  .js .problem .quiet:not(.is-playing) .qmonth span:first-child { opacity: 1; }
+  .js .problem .quiet:not(.is-playing) .qmonth span:last-child { opacity: 0; }
+  .js .problem .quiet.is-playing .qmonth span:nth-child(1) { animation: m-out 250ms ease 1300ms both; }
+  .js .problem .quiet.is-playing .qmonth span:nth-child(2) { animation: m-mid 1650ms ease 1300ms both; }
+  .js .problem .quiet.is-playing .qmonth span:nth-child(3) { animation: m-in 250ms ease 2750ms both; }
+  /* The turn: apps close up and become the week */
+  .js .does .merge li { transition: transform 900ms var(--ease-out), border-radius 700ms var(--ease-out), background-color 700ms var(--ease-out); }
+  .js .does .merge li:nth-child(1) { --k: 0; } .js .does .merge li:nth-child(2) { --k: 1; } .js .does .merge li:nth-child(3) { --k: 2; } .js .does .merge li:nth-child(4) { --k: 3; } .js .does .merge li:nth-child(5) { --k: 4; } .js .does .merge li:nth-child(6) { --k: 5; } .js .does .merge li:nth-child(7) { --k: 6; }
+  .js .does .merge li { transition-delay: calc(500ms + var(--k) * 60ms); }
+  .js .does .merge:not(.is-playing) li { border-radius: 26%; transform: translateX(calc(var(--k) * 50%)); }
+  .js .does .merge:not(.is-playing) li:nth-child(1) { background: #6b8796; } .js .does .merge:not(.is-playing) li:nth-child(2) { background: #8c7b6b; } .js .does .merge:not(.is-playing) li:nth-child(3) { background: #7a8f72; }
+  .js .does .merge:not(.is-playing) li:nth-child(4) { background: #9a6f7e; } .js .does .merge:not(.is-playing) li:nth-child(5) { background: #6f7a9a; } .js .does .merge:not(.is-playing) li:nth-child(6) { background: #a08a5a; }
+  .js .does .merge:not(.is-playing) li:nth-child(7) { transform: translateX(calc(var(--k) * 50%)) scale(0.4); opacity: 0; }
+  .js .does .merge li:nth-child(7) { transition-property: transform, border-radius, background-color, opacity; }
 }
 /* Phones: a shorter, quicker rise, so content is there by the time your eye gets to it */
 @media (prefers-reduced-motion: no-preference) and (max-width: 760px) {
+  .js .does .merge:not(.is-playing) li { transform: translateX(calc(var(--k) * 8%)); }
+  .js .does .merge:not(.is-playing) li:nth-child(7) { transform: translateX(calc(var(--k) * 8%)) scale(0.4); }
   .js [data-reveal] { transform: translateY(20px); transition-duration: 450ms, 600ms; transition-delay: calc(var(--i, 0) * 40ms); }
 }
 @keyframes rise { to { opacity: 1; transform: none; } }
 @keyframes lit { 0% { scale: 0.86; } 60% { scale: 1.07; } 100% { scale: 1; } }
 @keyframes pop { to { opacity: 1; transform: none; } }
+@keyframes m-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes m-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes m-mid { 0% { opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; } }
 @keyframes drift { from { transform: translate(0, 0); } to { transform: translate(-3%, -4%); } }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -596,6 +609,9 @@ html[data-view="member"] .week-band { padding-top: 0; }
 /* ---------- Tablet ---------- */
 @media (max-width: 1024px) {
   .statement { grid-column: 1 / 13; }
+  .problem .pb-words, .problem .pb--flip .pb-words { grid-column: 1 / 13; }
+  .problem .pb-fig, .problem .pb--flip .pb-fig { grid-column: 1 / 13; grid-row: auto; margin-top: 48px; max-width: 620px; }
+  .problem .pb-words p { max-width: none; }
   .does-phone { grid-column: 1 / 7; }
   .does-foot { grid-column: 7 / 13; }
   .inc-photo { grid-column: 1 / 13; position: static; }
@@ -632,6 +648,17 @@ html[data-view="member"] .week-band { padding-top: 0; }
 @media (max-width: 760px) {
 
   .hero-card { padding-left: 18px; padding-right: 18px; }
+  .hero-stage { display: none; }
+  .hero-apps { display: flex; justify-content: center; gap: 10px; margin-top: 24px; }
+  .hero-apps b { position: relative; width: 44px; aspect-ratio: 1; border-radius: 13px; display: grid; place-items: center; }
+  .hero-apps i { position: absolute; top: -7px; right: -8px; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 10px; background: var(--accent); color: #fff; font: 600 11px/20px "Albert Sans", system-ui, sans-serif; font-style: normal; }
+  .problem-title, .does-head { font-size: 2.25rem; }
+  .problem .pb-fig, .problem .pb--flip .pb-fig { margin-top: 32px; }
+  .problem .logins { height: 380px; }
+  .problem .lg { width: 88%; padding: 20px 20px 22px; }
+  .problem .lg:nth-child(2) { left: 6%; top: 60px; } .problem .lg:nth-child(3) { left: 12%; top: 120px; }
+  .problem .chat { height: 360px; padding: 14px; }
+  .does-head, .does .statement { margin-top: 32px; }
   .hero-form { grid-template-columns: 1fr; }
   .hero-title { font-size: 2.25rem; }
   .does-phone { grid-column: 1 / 13; margin-top: 48px; }
@@ -642,25 +669,10 @@ html[data-view="member"] .week-band { padding-top: 0; }
   .switch-words h2 { font-size: 2.25rem; }
   .big-switch { font-size: 24vw; margin-bottom: -8vw; }
 
-  .how { grid-template-columns: 1fr; min-height: 0; }
-  .how-screen { order: 1; padding: 40px var(--m) 24px; min-height: 46svh; }
-  .how-range { order: 2; position: static; background: var(--night); padding: 8px var(--m) 32px; }
-  .how-words { order: 3; }
-  .how-names { height: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-  .how-names button:nth-child(n) { position: static; transform: none; color: #c9d1d5; background: #1f1f1f; }
-  .how-names button.is-current { background: var(--accent); color: #fff; }
-  .how-range .range-track { background: #3a3a3a; }
-  .range-stops i { background: #3a3a3a; }
-  .range-wrap input::-webkit-slider-thumb { border-color: var(--night); }
-  .how-words { padding: 48px var(--m) 72px; }
-  .how-clause { font-size: 2.25rem; }
 
-  .week-band { gap: 6px; }
-  .wb { font-size: 0; }
-  .wb b { font-size: 0.9375rem; }
 
   .inc-list { margin-top: 40px; }
-  .hero-line, .hero-note, .offer-move, .does-foot p, .switch-words p, .how-note, .inc-intro, .inc-caption, .offer-words p, .faq details p, .coupon-words p { max-width: none; }
+  .hero-line, .hero-note, .offer-move, .does-foot p, .switch-words p, .inc-intro, .inc-caption, .offer-words p, .faq details p, .coupon-words p { max-width: none; }
   .rows li { grid-template-columns: 16px 1fr; padding: 10px 0; }
   .rows .val { grid-column: 2; text-align: left; }
 
