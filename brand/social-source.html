@@ -12,12 +12,18 @@
   .week i { width: 52px; height: 52px; border-radius: 50%; display: block; }
   .t { background: #b0298f; } .c { background: #0a0a0a; } .r { background: #cbe4f2; }
   .word { margin-top: auto; height: 40px; width: auto; align-self: flex-start; }
-  h1 { margin: 26px 0 0; font-weight: 600; font-size: 62px; line-height: 1; letter-spacing: -0.035em; }
-  p { margin: 22px 0 0; font-weight: 500; font-size: 26px; line-height: 1.25; letter-spacing: -0.01em; }
+  h1 { margin: 26px 0 0; font-weight: 600; font-size: 56px; line-height: 1; letter-spacing: -0.035em; }
+  p { margin: 22px 0 0; font-weight: 500; font-size: 26px; line-height: 1.25; letter-spacing: -0.01em; text-wrap: balance; }
   .stage { position: relative; overflow: hidden; background: #0a0a0a; border-radius: 24px; }
-  .stage i { position: absolute; border-radius: 50%; display: block; }
-  .stage .sand { width: 520px; height: 520px; background: #f1e3b5; left: -262px; top: 31px; }
-  .stage .mag { width: 520px; height: 520px; background: #b0298f; left: 325px; top: 31px; }
+  .stage .mag { position: absolute; width: 640px; height: 640px; border-radius: 50%; background: #b0298f; right: -290px; bottom: -330px; }
+  /* A member's phone today: generic apps only, as on the page's hero */
+  .phone { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: 270px; padding: 11px; border-radius: 42px; background: #fff; }
+  .screen { border-radius: 32px; background: #cbe4f2; padding: 34px 14px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px 8px; font-family: "Albert Sans", sans-serif; }
+  .app { position: relative; display: grid; justify-items: center; gap: 7px; font-size: 14px; font-weight: 500; color: #0a0a0a; }
+  .app b { width: 62px; height: 62px; border-radius: 18px; display: grid; place-items: center; }
+  .app svg { width: 31px; height: 31px; fill: none; stroke: #fff; stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round; }
+  .app em { position: absolute; top: -8px; left: calc(50% + 21px); min-width: 24px; height: 24px; padding: 0 6px; border-radius: 12px; background: #b0298f; color: #fff; font: 600 12px/24px "Albert Sans", sans-serif; font-style: normal; text-align: center; box-sizing: border-box; }
+  .a1 { background: #6b8796; } .a2 { background: #8c7b6b; } .a3 { background: #7a8f72; } .a4 { background: #9a6f7e; } .a5 { background: #6f7a9a; } .a6 { background: #a08a5a; }
 </style>
 </head>
 <body>
@@ -25,10 +31,19 @@
   <div class="card">
     <div class="week"><i class="t"></i><i class="c"></i><i class="t"></i><i class="c"></i><i class="r"></i><i class="t"></i><i class="r"></i></div>
     <img class="word" src="kinmova-wordmark.svg" alt="kinmova">
-    <h1>See who’s slipping<br>before they quit</h1>
-    <p>Class booking and coaching in one app. Founding studios get 3 months free.</p>
+    <h1>Your members have<br>too many apps</h1>
+    <p>Class booking and the training in between, in one app. Founding studios get 3 months free.</p>
   </div>
-  <div class="stage"><i class="sand"></i><i class="mag"></i></div>
+  <div class="stage"><i class="mag"></i>
+    <div class="phone"><div class="screen">
+      <span class="app"><b class="a1"><svg viewBox="0 0 64 64"><rect x="8" y="12" width="48" height="44" rx="8"/><path d="M8 26h48M20 6v12M44 6v12"/></svg></b>Class booking<em>3</em></span>
+      <span class="app"><b class="a2"><svg viewBox="0 0 64 64"><path d="M6 24v16M14 18v28M50 18v28M58 24v16M14 32h36"/></svg></b>Gym app<em>1</em></span>
+      <span class="app"><b class="a3"><svg viewBox="0 0 64 64"><circle cx="32" cy="14" r="6"/><path d="M32 22v14M14 30l18 6 18-6M18 52l14-16 14 16"/></svg></b>Yoga app<em>2</em></span>
+      <span class="app"><b class="a4"><svg viewBox="0 0 64 64"><path d="M10 14h44v30H28l-12 10V44h-6z"/></svg></b>Run club chat<em>48</em></span>
+      <span class="app"><b class="a5"><svg viewBox="0 0 64 64"><path d="M14 6h28l10 10v42H14z"/><path d="M22 26h20M22 36h20M22 46h12"/></svg></b>Coach’s sets</span>
+      <span class="app"><b class="a6"><svg viewBox="0 0 64 64"><rect x="12" y="28" width="40" height="30" rx="6"/><path d="M20 28v-8a12 12 0 0 1 24 0v8"/></svg></b>Passwords</span>
+    </div></div>
+  </div>
 </div>
 </body>
 </html>
